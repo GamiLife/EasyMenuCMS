@@ -1,6 +1,9 @@
-import { Table } from "@gamiui/standard";
+import { Table } from '@gamiui/standard';
+import { useCategoryStore } from '../../hooks/useCategoryStore';
 
 export const CategoryTable = () => {
+  const { categories } = useCategoryStore();
+
   const columns = [
     { title: 'NOMBRES', dataIndex: 'name' },
     { title: 'EDAD', dataIndex: 'age' },
