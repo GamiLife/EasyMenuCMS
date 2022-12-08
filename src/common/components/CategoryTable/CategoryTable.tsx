@@ -1,22 +1,42 @@
 import { Table } from '@gamiui/standard';
-import { useCategoryStore } from '../../hooks/useCategoryStore';
+import React from 'react';
+import { useGetCategoriesByCompanyIdQuery } from '../../../api';
+import { Category } from '../../types';
+
+const columns = [
+  { title: 'NUMERO', dataIndex: 'number' },
+  { title: 'TITULO', dataIndex: 'title' },
+  { title: 'DESCRIPCION', dataIndex: 'description' },
+];
 
 export const CategoryTable = () => {
-  const { categories } = useCategoryStore();
+  const [sizeByPage] = React.useState(3);
+  const [page, setPage] = React.useState(1);
 
-  const columns = [
-    { title: 'NOMBRES', dataIndex: 'name' },
-    { title: 'EDAD', dataIndex: 'age' },
-    { title: 'DIRECCION', dataIndex: 'address' },
-    { title: 'PAIS', dataIndex: 'country' },
-  ];
-  const items = [
-    { name: 'Pedro', age: '12', address: 'Jr Junior', country: 'USA' },
-    { name: 'Pedro', age: '12', address: 'Jr Junior', country: 'USA' },
-  ];
+  const { isFetching, data: response } = useGetCategoriesByCompanyIdQuery({
+    params: {
+      sizeByPage,
+      page,
+    },
+    id: '1',
+  });
+
+  if (!response) return null;
+  const { data, metaData } = response;
+  if (!metaData) return null;
+  const {
+    pagination: { totalPages },
+  } = metaData;
+
+  const makeTableItems = () =>
+    data.map((item) => {
+      const tableItem = new Category(item).buildTableCols();
+      return tableItem;
+    });
+  const tableItems = makeTableItems();
 
   const handleChangePage = (page: number) => {
-    console.log('test', page);
+    setPage(page + 1);
   };
 
   return (
@@ -24,7 +44,7 @@ export const CategoryTable = () => {
       <Table.Header columns={columns}>
         {(column) => <Table.Column as='th'>{column.title}</Table.Column>}
       </Table.Header>
-      <Table.Body items={items}>
+      <Table.Body items={tableItems}>
         {(item, index) => (
           <Table.Row item={item} key={index}>
             {([cellKey, cellValue], index) => (
@@ -41,7 +61,7 @@ export const CategoryTable = () => {
       <Table.Footer>
         <Table.Pagination
           columns={columns.length}
-          numberPages={6}
+          numberPages={totalPages}
           initialPage={0}
           onChangePage={handleChangePage}
         />

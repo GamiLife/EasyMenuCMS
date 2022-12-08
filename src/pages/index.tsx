@@ -2,6 +2,7 @@ import { Button, Container, Icon, Input, Table } from '@gamiui/standard';
 import classNames from 'classnames';
 import * as React from 'react';
 import { lightTheme } from '../../styles/design-system/theme';
+import { useGetCategoriesByCompanyIdQuery } from '../api';
 import { CategoryTable } from '../common/components/CategoryTable/CategoryTable';
 import { LayoutWrapper } from '../common/layouts';
 
