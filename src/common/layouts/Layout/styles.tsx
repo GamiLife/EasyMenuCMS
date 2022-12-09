@@ -28,6 +28,8 @@ export const BreadCrumb = styled(Container)`
 export const BreadCrumbItem = styled(Container)`
   display: flex;
   gap: 0.4rem;
+
+  font-size: 12px;
 `;
 
 export const BreadCrumArrow = styled(Container)`
