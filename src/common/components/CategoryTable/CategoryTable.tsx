@@ -9,7 +9,11 @@ const columns = [
   { title: 'DESCRIPCION', dataIndex: 'description' },
 ];
 
-export const CategoryTable = () => {
+export interface ICategoryTable {
+  search: string;
+}
+
+export const CategoryTable = ({ search }: ICategoryTable) => {
   const [sizeByPage] = React.useState(3);
   const [page, setPage] = React.useState(1);
 
@@ -17,6 +21,7 @@ export const CategoryTable = () => {
     params: {
       sizeByPage,
       page,
+      search,
     },
     id: '1',
   });
