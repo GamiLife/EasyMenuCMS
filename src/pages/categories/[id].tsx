@@ -1,27 +1,10 @@
-import styled from '@emotion/styled';
-import {
-  Button,
-  Container,
-  Form,
-  Input,
-  Title,
-  Select,
-} from '@gamiui/standard';
-import classNames from 'classnames';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import * as React from 'react';
+import styled from '@emotion/styled';
+import { Button, Container, Form, Input, Link, Select } from '@gamiui/standard';
 import { useAddCategoryMutation } from '../../api';
 import { LayoutWrapper } from '../../common/layouts';
+import { CreateBase } from '../../common/resources';
 import { Category } from '../../common/types';
-
-const NewCategoryContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-const CategoryTitle = styled(Container)``;
 
 const CategoryForm = styled(Container)`
   flex-grow: 1;
@@ -44,47 +27,20 @@ const FormFooter = styled(Container)`
   justify-content: space-between;
 `;
 
-export default function NewCategory() {
-  const companyId = 1;
-  const router = useRouter();
-  const [add, result] = useAddCategoryMutation({
-    fixedCacheKey: 'shared-add-category',
-  });
-  const { form } = Form.useForm();
-
-  const handleValidate = () => form.validate();
-
-  const fnFormat = (values: any) => {
+export default function EditCategory() {
+  const transform = (values: any) => {
     return {
       ...values,
       iconId: values.iconId.value,
     };
   };
 
-  const handleSubmit = async (values: any) => {
-    try {
-      const valuesFormatted = fnFormat(values);
-      const request = new Category({
-        ...valuesFormatted,
-        companyId,
-      }).buildCreateRequest();
-
-      await add(request);
-
-      router.push('/categories');
-    } catch (error) {}
-  };
-
   return (
-    <React.Fragment>
-      <NewCategoryContainer
-        padding='1rem'
-        className={classNames('categories__new')}
-      >
-        <CategoryTitle padding='1rem' margin='1rem 0'>
-          <Title level='h2'>Add new category that you want to have!</Title>
-        </CategoryTitle>
-
+    <CreateBase
+      resourceType='Category'
+      rtkHook={useAddCategoryMutation}
+      transform={transform}
+      renderForm={({ handleSubmit, handleValidate, form }) => (
         <CategoryForm>
           <FormContainer form={form} onSubmitForm={handleSubmit}>
             <Form.Item
@@ -141,11 +97,14 @@ export default function NewCategory() {
             </FooterItemContainer>
           </FormFooter>
         </CategoryForm>
-      </NewCategoryContainer>
-    </React.Fragment>
+      )}
+      Resource={Category}
+      fixedCacheKey='shared-add-category'
+      baseUrl='/categories'
+    ></CreateBase>
   );
 }
 
-NewCategory.getLayout = (children: React.ReactNode) => (
+EditCategory.getLayout = (children: React.ReactNode) => (
   <LayoutWrapper>{children}</LayoutWrapper>
 );

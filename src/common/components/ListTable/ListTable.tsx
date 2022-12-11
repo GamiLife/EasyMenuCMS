@@ -1,31 +1,28 @@
-import styled from '@emotion/styled';
 import { Table, Container, Loader, Button, Icon } from '@gamiui/standard';
-import React, { Fragment } from 'react';
+import { UseQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { lightTheme } from '../../../../styles/design-system/theme';
-import { useGetCategoriesByCompanyIdQuery } from '../../../api';
+import { useSliceActions, useSliceSelector } from '../../../context';
 import { Category } from '../../types';
+import * as S from './styles';
 
-const LoaderCategoryTable = styled(Loader.Wrapper)`
-  height: 291px;
-`;
-
-const Actions = styled(Container)`
-  display: flex;
-  gap: 1rem;
-`;
-
-export interface ICategoryTable {
-  search: string;
+export interface IListTable {
+  rtkHook: UseQuery<any>;
 }
 
-export const CategoryTable = ({ search }: ICategoryTable) => {
-  const [sizeByPage] = React.useState(5);
-  const [page, setPage] = React.useState(1);
+export const ListTable = ({ rtkHook }: IListTable) => {
+  const dispatch = useDispatch();
+  const { currentPage, itemsPerPage, search } = useSliceSelector();
+  const { updateCurrentPage } = useSliceActions();
 
-  const { isFetching, data: response } = useGetCategoriesByCompanyIdQuery({
+  const handleChangePage = (newPage: number) =>
+    dispatch(updateCurrentPage(newPage));
+
+  const { isFetching, data: response } = rtkHook({
     params: {
-      sizeByPage,
-      page,
+      sizeByPage: itemsPerPage,
+      page: currentPage,
       search,
     },
     id: '1',
@@ -39,31 +36,27 @@ export const CategoryTable = ({ search }: ICategoryTable) => {
       title: 'ACCIONES',
       dataIndex: 'actions',
       render: (id: string) => (
-        <Actions className='flex'>
+        <S.Actions className='flex'>
           <Button variant='secondary' bordered shadow='none'>
             <Icon name='preview' color={lightTheme.primary.mediumPurple} />
           </Button>
           <Button variant='danger'>
             <Icon name='brain' color={lightTheme.neutral[800]} />
           </Button>
-        </Actions>
+        </S.Actions>
       ),
     },
   ];
 
-  const totalPages = response?.metaData?.pagination.totalPages ?? 0;
-  const data = response?.data;
+  const totalPages = (response as any)?.metaData?.pagination.totalPages ?? 0;
+  const data = (response as any)?.data;
 
   const makeTableItems = () =>
-    data?.map((item) => {
+    data?.map((item: any) => {
       const tableItem = new Category(item).buildTableCols();
       return tableItem;
     });
   const tableItems = makeTableItems() ?? [];
-
-  const handleChangePage = (page: number) => {
-    setPage(page + 1);
-  };
 
   return (
     <Container>
@@ -72,7 +65,7 @@ export const CategoryTable = ({ search }: ICategoryTable) => {
           {(column) => <Table.Column as='th'>{column.title}</Table.Column>}
         </Table.Header>
 
-        <LoaderCategoryTable
+        <S.LoaderListTable
           as='tbody'
           minHeight='200px'
           behavior='none'
@@ -102,7 +95,7 @@ export const CategoryTable = ({ search }: ICategoryTable) => {
               </Table.Row>
             )}
           </Table.Body>
-        </LoaderCategoryTable>
+        </S.LoaderListTable>
 
         {totalPages > 0 && (
           <Table.Footer>
