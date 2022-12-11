@@ -8,7 +8,7 @@ import { ResourceBase } from '../../types';
 
 import * as S from './styles';
 
-export interface ICreateRenderForm {
+export type ICreateRenderForm = {
   handleSubmit: (values: any) => void;
   handleValidate: () => void;
   form: TFormValues;

@@ -1,4 +1,5 @@
 import { Form, Title } from '@gamiui/standard';
+import { TFormValues } from '@gamiui/standard/lib/types/hooks/useForm';
 import { UseMutation } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
@@ -10,6 +11,7 @@ import * as S from './styles';
 export interface IEditRenderForm {
   handleSubmit: (values: any) => void;
   handleValidate: () => void;
+  form: TFormValues;
 }
 
 export interface IEditBase {
@@ -61,7 +63,7 @@ export const EditBase = ({
         <Title level='h2'>Edit {resourceType} that you have!</Title>
       </S.HeaderEdit>
 
-      {renderForm({ handleSubmit, handleValidate })}
+      {renderForm({ handleSubmit, handleValidate, form })}
     </S.EditBase>
   );
 };

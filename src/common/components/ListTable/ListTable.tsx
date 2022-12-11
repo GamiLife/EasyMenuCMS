@@ -1,4 +1,5 @@
 import { Table, Container, Loader, Button, Icon } from '@gamiui/standard';
+import { ICell } from '@gamiui/standard/lib/types/designSystem/molecules/Table/Cell';
 import { UseQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -9,9 +10,10 @@ import * as S from './styles';
 
 export interface IListTable {
   rtkHook: UseQuery<any>;
+  columns: ICell['columns'];
 }
 
-export const ListTable = ({ rtkHook }: IListTable) => {
+export const ListTable = ({ rtkHook, columns }: IListTable) => {
   const dispatch = useDispatch();
   const { currentPage, itemsPerPage, search } = useSliceSelector();
   const { updateCurrentPage } = useSliceActions();
@@ -27,26 +29,6 @@ export const ListTable = ({ rtkHook }: IListTable) => {
     },
     id: '1',
   });
-
-  const columns = [
-    { title: 'NUMERO', dataIndex: 'number' },
-    { title: 'TITULO', dataIndex: 'title' },
-    { title: 'DESCRIPCION', dataIndex: 'description' },
-    {
-      title: 'ACCIONES',
-      dataIndex: 'actions',
-      render: (id: string) => (
-        <S.Actions className='flex'>
-          <Button variant='secondary' bordered shadow='none'>
-            <Icon name='preview' color={lightTheme.primary.mediumPurple} />
-          </Button>
-          <Button variant='danger'>
-            <Icon name='brain' color={lightTheme.neutral[800]} />
-          </Button>
-        </S.Actions>
-      ),
-    },
-  ];
 
   const totalPages = (response as any)?.metaData?.pagination.totalPages ?? 0;
   const data = (response as any)?.data;
