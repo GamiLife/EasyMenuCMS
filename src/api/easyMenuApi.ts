@@ -39,6 +39,7 @@ export const easyMenuApi = createApi({
 
 export const {
   useGetCategoriesQuery,
-  useAddCategoryMutation,
   useGetCategoriesByCompanyIdQuery,
+  useAddCategoryMutation,
+  useUpdateCategoryMutation,
 } = easyMenuApi;

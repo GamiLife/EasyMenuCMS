@@ -1,21 +1,34 @@
-interface ICategory {
-  id: number;
+import { IStoreModel, StoreModel } from './store.model';
+
+interface ICategory extends IStoreModel {
+  id?: number;
   description: string;
   title: string;
   iconId: string;
 }
 
-export class Category {
-  id: ICategory['id'];
+export class Category extends StoreModel {
+  id?: ICategory['id'];
   title: ICategory['title'];
   description: ICategory['description'];
   iconId: ICategory['iconId'];
 
-  constructor(props: ICategory) {
-    this.id = props.id;
-    this.title = props.title;
-    this.description = props.description;
-    this.iconId = props.iconId;
+  constructor({ id, title, description, iconId, ...storeProps }: ICategory) {
+    super(storeProps);
+
+    this.id = id;
+    this.title = title;
+    this.description = description;
+    this.iconId = iconId;
+  }
+
+  buildCreateRequest() {
+    return {
+      title: this.title,
+      description: this.description,
+      iconId: this.iconId,
+      companyId: this.companyId,
+    };
   }
 
   buildTableCols() {
@@ -23,6 +36,7 @@ export class Category {
       number: this.id,
       title: this.title,
       description: this.description,
+      actions: this.id,
     };
   }
 }

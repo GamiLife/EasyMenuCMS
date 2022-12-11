@@ -4,17 +4,16 @@ import {
   Container,
   Form,
   Input,
-  Password,
   Title,
   Select,
-  Radio,
-  Portal,
 } from '@gamiui/standard';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import * as React from 'react';
-import { useRef } from 'react';
+import { useAddCategoryMutation } from '../../api';
 import { LayoutWrapper } from '../../common/layouts';
+import { Category } from '../../common/types';
 
 const NewCategoryContainer = styled(Container)`
   display: flex;
@@ -46,14 +45,34 @@ const FormFooter = styled(Container)`
 `;
 
 export default function NewCategory() {
+  const companyId = 1;
+  const router = useRouter();
+  const [add, result] = useAddCategoryMutation({
+    fixedCacheKey: 'shared-add-category',
+  });
   const { form } = Form.useForm();
 
-  const handleValidate = () => {
-    form.validate();
+  const handleValidate = () => form.validate();
+
+  const fnFormat = (values: any) => {
+    return {
+      ...values,
+      iconId: values.iconId.value,
+    };
   };
 
-  const handleSubmit = (values: any) => {
-    console.log(values);
+  const handleSubmit = async (values: any) => {
+    try {
+      const valuesFormatted = fnFormat(values);
+      const request = new Category({
+        ...valuesFormatted,
+        companyId,
+      }).buildCreateRequest();
+
+      await add(request);
+
+      router.push('/categories');
+    } catch (error) {}
   };
 
   return (
@@ -71,11 +90,11 @@ export default function NewCategory() {
             <Form.Item
               rules={[{ type: 'required', message: 'Campo requerido' }]}
               label='Titutlo'
-              name='names'
+              name='title'
             >
               <Input placeholder='Titulo' />
             </Form.Item>
-            <Form.Item label='Descripcion' name='password'>
+            <Form.Item label='Descripcion' name='description'>
               <Input placeholder='Descripcion' />
             </Form.Item>
             <Form.Item
@@ -97,7 +116,13 @@ export default function NewCategory() {
           <FormFooter>
             <FooterItemContainer>
               <Link href='/categories'>
-                <Button width='full' variant='primary' rounded='sm' bordered>
+                <Button
+                  width='full'
+                  variant='primary'
+                  rounded='sm'
+                  bordered
+                  shadow='none'
+                >
                   Regresar
                 </Button>
               </Link>
