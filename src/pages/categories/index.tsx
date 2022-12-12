@@ -24,9 +24,11 @@ export default function Categories() {
       dataIndex: 'actions',
       render: (id: string) => (
         <Actions className='flex'>
-          <Button variant='secondary' bordered shadow='none'>
-            <Icon name='preview' color={lightTheme.primary.mediumPurple} />
-          </Button>
+          <Link href={`/categories/${id}`}>
+            <Button variant='secondary' bordered shadow='none'>
+              <Icon name='preview' color={lightTheme.primary.mediumPurple} />
+            </Button>
+          </Link>
           <Button variant='danger'>
             <Icon name='brain' color={lightTheme.neutral[800]} />
           </Button>

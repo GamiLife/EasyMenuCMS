@@ -15,6 +15,10 @@ export const FormContainer = styled(Form)`
 export const FooterItemContainer = styled(Container)`
   max-width: 400px;
   width: 30%;
+
+  a {
+    width: 100%;
+  }
 `;
 
 export const FormFooter = styled(Container)`

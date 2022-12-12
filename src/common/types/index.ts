@@ -4,3 +4,4 @@ export * from './pagination.model';
 export * from './metadata.model';
 export * from './store.model';
 export * from './base.interface';
+export * from './company.model'

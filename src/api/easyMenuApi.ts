@@ -28,8 +28,8 @@ export const easyMenuApi = createApi({
       }),
     }),
     updateCategory: builder.mutation({
-      query: (body) => ({
-        url: `categories`,
+      query: ({ body, id }) => ({
+        url: `categories/${id}`,
         method: 'PUT',
         body,
       }),

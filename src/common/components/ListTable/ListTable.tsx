@@ -1,4 +1,4 @@
-import { Table, Container, Loader, Button, Icon } from '@gamiui/standard';
+import { Table, Container, Loader } from '@gamiui/standard';
 import { ICell } from '@gamiui/standard/lib/types/designSystem/molecules/Table/Cell';
 import { UseQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import React from 'react';
@@ -19,7 +19,7 @@ export const ListTable = ({ rtkHook, columns }: IListTable) => {
   const { updateCurrentPage } = useSliceActions();
 
   const handleChangePage = (newPage: number) =>
-    dispatch(updateCurrentPage(newPage));
+    dispatch(updateCurrentPage(newPage + 1));
 
   const { isFetching, data: response } = rtkHook({
     params: {

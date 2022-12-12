@@ -12,7 +12,7 @@ export type ICreateRenderForm = {
   handleSubmit: (values: any) => void;
   handleValidate: () => void;
   form: TFormValues;
-}
+};
 
 export interface ICreateBase {
   resourceType: string;
@@ -38,7 +38,7 @@ export const CreateBase = ({
   const [execute, { isLoading, isError, isSuccess }] = rtkHook({
     fixedCacheKey,
   });
-  const { form } = Form.useForm();
+  const { form } = Form.useForm({});
 
   const handleValidate = () => form.validate();
 

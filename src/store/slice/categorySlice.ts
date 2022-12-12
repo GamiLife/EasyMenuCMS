@@ -14,7 +14,7 @@ export interface IAction<T = any> {
 
 export const initialState = {
   currentPage: 1,
-  itemsPerPage: 10,
+  itemsPerPage: 6,
   search: '',
   items: [],
 };

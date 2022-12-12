@@ -1,13 +1,17 @@
 import { Button, Form, Input, Link, Select } from '@gamiui/standard';
+import { ISelect } from '@gamiui/standard/lib/types/designSystem/atoms/Select/Select';
 import { ICreateRenderForm } from '../../../common/resources';
 import * as S from './styles';
 
-export type ICategoryEditForm = {} & ICreateRenderForm;
+export type ICategoryEditForm = {
+  iconOptions: ISelect['options'];
+} & ICreateRenderForm;
 
 export const CategoryEditForm = ({
+  iconOptions,
+  form,
   handleSubmit,
   handleValidate,
-  form,
 }: ICategoryEditForm) => {
   return (
     <S.CategoryForm>
@@ -27,14 +31,7 @@ export const CategoryEditForm = ({
           label='Elige un icono para tu categoría'
           name='iconId'
         >
-          <Select
-            placeholder='Type your option'
-            options={[
-              { value: 'chocolate', label: 'Chocolate' },
-              { value: 'strawberry', label: 'Strawberry' },
-              { value: 'vanilla', label: 'Vanilla' },
-            ]}
-          />
+          <Select placeholder='Type your option' options={iconOptions} />
         </Form.Item>
       </S.FormContainer>
 

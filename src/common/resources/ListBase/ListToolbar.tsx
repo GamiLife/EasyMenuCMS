@@ -2,6 +2,7 @@ import { Container, Input, Icon } from '@gamiui/standard';
 import classNames from 'classnames';
 
 import React, { useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { lightTheme } from '../../../../styles/design-system/theme';
 import { useSliceActions } from '../../../context';
 import { useDebounce } from '../../hooks';
@@ -13,7 +14,10 @@ export interface IListToolbar {
 export const ListToolbar = ({ renderActions }: IListToolbar) => {
   const [search, setSearch] = React.useState('');
 
-  const { updateSearch } = useSliceActions();
+  const actions = useSliceActions();
+
+  const dispatch = useDispatch();
+  const { updateSearch } = actions;
   const debounceSearch = useDebounce({ value: search, delay: 500 });
 
   const onChange = (value: string) => setSearch(value);
@@ -21,7 +25,7 @@ export const ListToolbar = ({ renderActions }: IListToolbar) => {
   const optimizedFn = useCallback(onChange, []);
 
   useEffect(() => {
-    updateSearch(debounceSearch);
+    dispatch(updateSearch(debounceSearch));
   }, [debounceSearch]);
 
   return (

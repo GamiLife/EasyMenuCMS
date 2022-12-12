@@ -1,7 +1,7 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer/dist/internal';
-import { searchAppReducer } from '.';
 import { IAction, TCategoryState } from '../slice/categorySlice';
+import { searchAppReducer } from './searchAppReducer';
 
 export interface IAddCategory {
   title: string;

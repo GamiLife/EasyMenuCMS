@@ -15,6 +15,8 @@ export interface IEditRenderForm {
 }
 
 export interface IEditBase {
+  resourceId: string;
+  defaultValue?: Record<string, unknown>;
   resourceType: string;
   rtkHook: UseMutation<any>;
   transform?: (values: any) => any;
@@ -25,6 +27,8 @@ export interface IEditBase {
 }
 
 export const EditBase = ({
+  resourceId,
+  defaultValue,
   resourceType,
   rtkHook,
   transform,
@@ -38,7 +42,7 @@ export const EditBase = ({
   const [execute, { isLoading, isError, isSuccess }] = rtkHook({
     fixedCacheKey,
   });
-  const { form } = Form.useForm();
+  const { form } = Form.useForm({ defaultValue });
 
   const handleValidate = () => form.validate();
 
@@ -49,7 +53,8 @@ export const EditBase = ({
       const request = new Resource({
         ...valuesTransformed,
         companyId,
-      }).buildCreateRequest();
+        id: resourceId,
+      }).buildEditRequest();
 
       await execute(request);
 
