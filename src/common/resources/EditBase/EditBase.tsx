@@ -1,4 +1,4 @@
-import { Form, Title } from '@gamiui/standard';
+import { Container, Form, Title } from '@gamiui/standard';
 import { TFormValues } from '@gamiui/standard/lib/types/hooks/useForm';
 import { UseMutation } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import classNames from 'classnames';

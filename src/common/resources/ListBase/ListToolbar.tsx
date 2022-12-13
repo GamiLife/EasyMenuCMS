@@ -1,4 +1,5 @@
-import { Container, Input, Icon } from '@gamiui/standard';
+import styled from '@emotion/styled';
+import { Container, Input, Icon, Title } from '@gamiui/standard';
 import classNames from 'classnames';
 
 import React, { useCallback, useEffect } from 'react';
@@ -10,6 +11,14 @@ import { useDebounce } from '../../hooks';
 export interface IListToolbar {
   renderActions: () => React.ReactNode;
 }
+
+const HeaderBase = styled(Container)`
+  gap: 2rem;
+`;
+
+const SearchInput = styled(Input)`
+  padding-top: 0;
+`;
 
 export const ListToolbar = ({ renderActions }: IListToolbar) => {
   const [search, setSearch] = React.useState('');
@@ -33,15 +42,25 @@ export const ListToolbar = ({ renderActions }: IListToolbar) => {
       padding='1rem'
       className={classNames('list__toolbar', 'flex', 'justify-between')}
     >
-      <Input
-        placeholder='Busca el item(s) que desees...'
-        prefix={<Icon name='setting' color={lightTheme.neutral[300]} />}
-        positionPrefix='right'
-        value={search}
-        onChangeFormItem={optimizedFn}
-      />
+      <HeaderBase
+        className={classNames('flex', 'justify-center', 'items-center')}
+      >
+        <Title>Categoria</Title>
+      </HeaderBase>
 
-      <Container>{renderActions()}</Container>
+      <HeaderBase
+        className={classNames('flex', 'justify-center', 'items-center')}
+      >
+        <SearchInput
+          width='lg'
+          placeholder='Busca lo que desees...'
+          prefix={<Icon name='setting' color={lightTheme.neutral[300]} />}
+          positionPrefix='right'
+          value={search}
+          onChangeFormItem={optimizedFn}
+        />
+        {renderActions()}
+      </HeaderBase>
     </Container>
   );
 };

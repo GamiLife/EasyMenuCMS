@@ -25,3 +25,7 @@ export const FormFooter = styled(Container)`
   display: flex;
   justify-content: space-between;
 `;
+
+export const CategoryContent = styled(Container)`
+  padding-right: 4%;
+`;

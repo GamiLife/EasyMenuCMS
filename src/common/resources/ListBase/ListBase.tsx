@@ -1,4 +1,4 @@
-import { Container } from '@gamiui/standard';
+import { Container, Title } from '@gamiui/standard';
 import { ICell } from '@gamiui/standard/lib/types/designSystem/molecules/Table/Cell';
 import { Slice } from '@reduxjs/toolkit';
 import { UseQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';

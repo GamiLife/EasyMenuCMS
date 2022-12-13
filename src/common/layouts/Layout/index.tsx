@@ -26,7 +26,7 @@ export const LayoutWrapper = ({ children }: ILayoutWrapper) => {
           <S.BreadCrumbItem>
             <Icon name='notes' color='black' />
             <Title level='h3' fontWeight='medium'>
-              Home
+              Categoria
             </Title>
           </S.BreadCrumbItem>
         </S.BreadCrumb>

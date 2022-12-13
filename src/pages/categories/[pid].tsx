@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useGetCategoryByIdQuery, useUpdateCategoryMutation } from '../../api';
+import { EasyLoader } from '../../common/components/EasyLoader';
 import { useEditController } from '../../common/hooks';
 import { LayoutWrapper } from '../../common/layouts';
 import { EditBase } from '../../common/resources';
@@ -31,9 +32,6 @@ export default function EditCategory() {
     id,
   });
 
-  if (isFetching) return null;
-  if (!data) return null;
-
   const transform = (values: any) => {
     return {
       ...values,
@@ -44,22 +42,26 @@ export default function EditCategory() {
   const transformOnGet = (values: any) => new Category(values).buildGet();
 
   return (
-    <EditBase
-      resourceId={id}
-      defaultValue={transformOnGet({
-        ...data,
-        iconOptions,
-      })}
-      resourceType='Category'
-      rtkHook={useUpdateCategoryMutation}
-      transform={transform}
-      renderForm={(props) => (
-        <CategoryEditForm {...props} iconOptions={iconOptions} />
+    <EasyLoader isLoading={isFetching}>
+      {data && (
+        <EditBase
+          resourceId={id}
+          defaultValue={transformOnGet({
+            ...data,
+            iconOptions,
+          })}
+          resourceType='Category'
+          rtkHook={useUpdateCategoryMutation}
+          transform={transform}
+          renderForm={(props) => (
+            <CategoryEditForm {...props} iconOptions={iconOptions} />
+          )}
+          Resource={Category}
+          fixedCacheKey='shared-edit-category'
+          baseUrl='/categories'
+        ></EditBase>
       )}
-      Resource={Category}
-      fixedCacheKey='shared-edit-category'
-      baseUrl='/categories'
-    ></EditBase>
+    </EasyLoader>
   );
 }
 

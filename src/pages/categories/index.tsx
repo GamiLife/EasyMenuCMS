@@ -45,7 +45,7 @@ export default function Categories() {
         <ListToolbar
           renderActions={() => (
             <Link href='/categories/create'>
-              <Button>Crear Categoria</Button>
+              <Button>Crear</Button>
             </Link>
           )}
         />
