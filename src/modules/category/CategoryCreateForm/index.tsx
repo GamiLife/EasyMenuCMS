@@ -48,7 +48,7 @@ export const CategoryCreateForm = ({
           </Form.Item>
         </S.FormContainer>
         <Image
-          maxWidth='600px'
+          maxWidth='400px'
           alt='form_image'
           src='https://i.imgur.com/e226gZx.png'
         />
