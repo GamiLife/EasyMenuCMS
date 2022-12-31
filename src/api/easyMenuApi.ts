@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Response, Category } from '../common/types';
+import { categoryApi } from './category';
+import { newApi } from './new';
 
 export const easyMenuApi = createApi({
   reducerPath: 'easyMenuApi',
@@ -7,33 +9,8 @@ export const easyMenuApi = createApi({
     baseUrl: 'http://127.0.0.1:4200/easymenu/api/v1',
   }),
   endpoints: (builder) => ({
-    getCategories: builder.query({
-      query: () => `categories`,
-    }),
-    getCategoriesByCompanyId: builder.query<Response<Category[]>, unknown>({
-      query: ({ params, id }) => ({
-        url: `categories/companies/${id}`,
-        method: 'GET',
-        params,
-      }),
-    }),
-    getCategoryById: builder.query({
-      query: (id: string) => `categories/${id}`,
-    }),
-    addCategory: builder.mutation({
-      query: (body) => ({
-        url: `categories`,
-        method: 'POST',
-        body,
-      }),
-    }),
-    updateCategory: builder.mutation({
-      query: ({ body, id }) => ({
-        url: `categories/${id}`,
-        method: 'PUT',
-        body,
-      }),
-    }),
+    ...categoryApi(builder),
+    ...newApi(builder),
   }),
 });
 
@@ -41,9 +18,13 @@ export const {
   useGetCategoriesQuery,
   useGetCategoryByIdQuery,
   useGetCategoriesByCompanyIdQuery,
-
   useAddCategoryMutation,
   useUpdateCategoryMutation,
+
+  useGetNewByIdQuery,
+  useGetNewsByCompanyIdQuery,
+  useAddNewMutation,
+  useUpdateNewMutation,
 } = easyMenuApi;
 
 export const endpoints = {
@@ -51,5 +32,10 @@ export const endpoints = {
     pagination: useGetCategoriesByCompanyIdQuery,
     create: useAddCategoryMutation,
     update: useUpdateCategoryMutation,
+  },
+  news: {
+    pagination: useGetNewsByCompanyIdQuery,
+    create: useAddNewMutation,
+    udpate: useUpdateCategoryMutation,
   },
 };

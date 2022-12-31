@@ -6,22 +6,24 @@ import classNames from 'classnames';
 import React from 'react';
 import { ListTable } from '../../components/ListTable';
 import { withSlice } from '../../hocs';
+import { ResourceBase } from '../../types';
 
 export interface IListBase {
   listToolbar: React.ReactNode;
   slice: Slice;
   rtkHook: UseQuery<any>;
   columns: ICell['columns'];
+  Resource: new (...args: any[]) => ResourceBase;
 }
 
-const ListBasePure = ({ listToolbar, rtkHook, columns }: IListBase) => {
+const ListBasePure = ({ listToolbar, rtkHook, columns,Resource }: IListBase) => {
   return (
     <React.Fragment>
       <Container padding='1rem' className={classNames('listbase')}>
         {listToolbar}
 
         <Container>
-          <ListTable rtkHook={rtkHook} columns={columns} />
+          <ListTable rtkHook={rtkHook} columns={columns} Resource={Resource} />
         </Container>
       </Container>
     </React.Fragment>

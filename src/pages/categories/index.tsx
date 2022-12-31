@@ -7,6 +7,7 @@ import { lightTheme } from '../../../styles/design-system/theme';
 import { useGetCategoriesByCompanyIdQuery } from '../../api';
 import { LayoutWrapper } from '../../common/layouts';
 import { ListBase, ListToolbar } from '../../common/resources';
+import { Category } from '../../common/types';
 import { categorySlice } from '../../store';
 
 export const Actions = styled(Container)`
@@ -38,6 +39,7 @@ export default function Categories() {
   ];
   return (
     <ListBase
+      Resource={Category}
       columns={columns}
       slice={categorySlice}
       rtkHook={useGetCategoriesByCompanyIdQuery}

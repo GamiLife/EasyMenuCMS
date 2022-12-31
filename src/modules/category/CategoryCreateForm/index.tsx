@@ -9,7 +9,7 @@ import {
 } from '@gamiui/standard';
 import classnames from 'classnames';
 import { ICreateRenderForm } from '../../../common/resources';
-import * as S from './styles';
+import * as S from '../../../../styles/common/resource-form';
 
 export type ICategoryCreateForm = {} & ICreateRenderForm;
 
@@ -19,8 +19,8 @@ export const CategoryCreateForm = ({
   form,
 }: ICategoryCreateForm) => {
   return (
-    <S.CategoryForm>
-      <S.CategoryContent className={classnames('flex', 'justify-between')}>
+    <S.BaseForm>
+      <S.FormContent className={classnames('flex', 'justify-between')}>
         <S.FormContainer form={form} onSubmitForm={handleSubmit}>
           <Form.Item
             rules={[{ type: 'required', message: 'Campo requerido' }]}
@@ -52,7 +52,7 @@ export const CategoryCreateForm = ({
           alt='form_image'
           src='https://i.imgur.com/e226gZx.png'
         />
-      </S.CategoryContent>
+      </S.FormContent>
 
       <S.FormFooter>
         <S.FooterItemContainer>
@@ -81,6 +81,6 @@ export const CategoryCreateForm = ({
           </Button>
         </S.FooterItemContainer>
       </S.FormFooter>
-    </S.CategoryForm>
+    </S.BaseForm>
   );
 };

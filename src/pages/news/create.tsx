@@ -1,0 +1,31 @@
+import * as React from 'react';
+import { useAddNewMutation } from '../../api';
+import { LayoutWrapper } from '../../common/layouts';
+import { CreateBase } from '../../common/resources';
+import { New } from '../../common/types';
+import { NewCreateForm } from '../../modules/news';
+
+export default function AddNew() {
+  const transform = (values: any) => {
+    return {
+      ...values,
+      iconId: values.iconId.value,
+    };
+  };
+
+  return (
+    <CreateBase
+      resourceType='New'
+      rtkHook={useAddNewMutation}
+      transform={transform}
+      renderForm={(props) => <NewCreateForm {...props} />}
+      Resource={New}
+      fixedCacheKey='shared-add-new'
+      baseUrl='/news'
+    ></CreateBase>
+  );
+}
+
+AddNew.getLayout = (children: React.ReactNode) => (
+  <LayoutWrapper>{children}</LayoutWrapper>
+);

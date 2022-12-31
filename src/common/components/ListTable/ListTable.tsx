@@ -5,15 +5,16 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { lightTheme } from '../../../../styles/design-system/theme';
 import { useSliceActions, useSliceSelector } from '../../../context';
-import { Category } from '../../types';
+import { ResourceBase } from '../../types';
 import * as S from './styles';
 
 export interface IListTable {
   rtkHook: UseQuery<any>;
   columns: ICell['columns'];
+  Resource: new (...args: any[]) => ResourceBase;
 }
 
-export const ListTable = ({ rtkHook, columns }: IListTable) => {
+export const ListTable = ({ rtkHook, columns, Resource }: IListTable) => {
   const dispatch = useDispatch();
   const { currentPage, itemsPerPage, search } = useSliceSelector();
   const { updateCurrentPage } = useSliceActions();
@@ -35,7 +36,7 @@ export const ListTable = ({ rtkHook, columns }: IListTable) => {
 
   const makeTableItems = () =>
     data?.map((item: any) => {
-      const tableItem = new Category(item).buildTableCols();
+      const tableItem = new Resource(item).buildTableCols();
       return tableItem;
     });
   const tableItems = makeTableItems() ?? [];
