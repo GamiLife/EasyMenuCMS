@@ -78,7 +78,12 @@ export class New extends StoreModel implements ResourceBase {
     return {
       title: this.title,
       description: this.description,
-      imageUrl: this.imageUrl,
+      imageUrl: [
+        {
+          id: 1,
+          url: this.imageUrl,
+        },
+      ],
       backgroundColor: this.backgroundColor,
       startDate: new Date(this.startDate),
       endDate: new Date(this.endDate),

@@ -46,7 +46,7 @@ export const NewCreateForm = ({
             label="Fecha Fin"
             name="endDate"
           >
-            <DatePicker />
+            <DatePicker formatter="dd/MM/yy" />
           </Form.Item>
           <Form.Item
             rules={[{ type: "required", message: "Campo requerido" }]}
@@ -56,11 +56,23 @@ export const NewCreateForm = ({
             <ColorPicker />
           </Form.Item>
           <Form.Item
-            rules={[{ type: "required", message: "Campo requerido" }]}
+            rules={[
+              { type: "required", message: "Campo requerido" },
+              {
+                type: "minLength",
+                message: "Debes cargar minimo 1 imagen",
+                value: 1,
+              },
+              {
+                type: "maxLength",
+                message: "El limite de imagenes es de 5",
+                value: 5,
+              },
+            ]}
             label="Imagenes para cargar"
-            name="filelist"
+            name="imageUrl"
           >
-            <File />
+            <File withPreview isMultiple={false} />
           </Form.Item>
         </S.FormContainer>
         <Image
