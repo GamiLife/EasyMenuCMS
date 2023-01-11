@@ -48,28 +48,30 @@ export class New extends StoreModel implements ResourceBase {
   }
 
   buildCreateRequest() {
-    return {
-      title: this.title,
-      description: this.description,
-      imageUrl: this.imageUrl,
-      backgroundColor: this.backgroundColor,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      companyId: this.companyId,
-    };
+    const request = new FormData();
+    request.append("title", this.title);
+    request.append("description", this.description);
+    request.append("backgroundColor", this.backgroundColor);
+    request.append("startDate", this.startDate);
+    request.append("endDate", this.endDate);
+    request.append("companyId", "1");
+    request.append("file", this.imageUrl);
+
+    return request;
   }
 
   buildEditRequest() {
+    const request = new FormData();
+    request.append("title", this.title);
+    request.append("description", this.description);
+    request.append("backgroundColor", this.backgroundColor);
+    request.append("startDate", this.startDate);
+    request.append("endDate", this.endDate);
+    request.append("companyId", "1");
+    request.append("file", this.imageUrl);
+
     return {
-      body: {
-        title: this.title,
-        description: this.description,
-        imageUrl: this.imageUrl,
-        backgroundColor: this.backgroundColor,
-        startDate: this.startDate,
-        endDate: this.endDate,
-        companyId: this.companyId,
-      },
+      body: request,
       id: this.id,
     };
   }

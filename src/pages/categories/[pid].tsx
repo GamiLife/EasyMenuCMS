@@ -1,26 +1,26 @@
-import { useRouter } from 'next/router';
-import * as React from 'react';
-import { useGetCategoryByIdQuery, useUpdateCategoryMutation } from '../../api';
-import { EasyLoader } from '../../common/components/EasyLoader';
-import { useEditController } from '../../common/hooks';
-import { LayoutWrapper } from '../../common/layouts';
-import { EditBase } from '../../common/resources';
-import { Category } from '../../common/types';
-import { CategoryEditForm } from '../../modules/category';
+import { useRouter } from "next/router";
+import * as React from "react";
+import { useGetCategoryByIdQuery, useUpdateCategoryMutation } from "../../api";
+import { EasyLoader } from "../../common/components/EasyLoader";
+import { useEditController } from "../../common/hooks";
+import { LayoutWrapper } from "../../common/layouts";
+import { EditBase } from "../../common/resources";
+import { Category } from "../../common/types";
+import { CategoryEditForm } from "../../modules/category";
 
 export default function EditCategory() {
   const iconOptions = [
     {
-      label: 'Bebidas',
-      value: 'bebidas',
+      label: "Bebidas",
+      value: "bebidas",
     },
     {
-      value: 'seafood',
-      label: 'Comida Marina',
+      value: "seafood",
+      label: "Comida Marina",
     },
     {
-      label: 'Pastas',
-      value: 'pastfood',
+      label: "Pastas",
+      value: "pastfood",
     },
   ];
   const router = useRouter();
@@ -35,6 +35,7 @@ export default function EditCategory() {
   const transform = (values: any) => {
     return {
       ...values,
+      companyId: 1,
       iconId: values.iconId.value,
     };
   };
@@ -50,15 +51,15 @@ export default function EditCategory() {
             ...data,
             iconOptions,
           })}
-          resourceType='Category'
+          resourceType="Category"
           rtkHook={useUpdateCategoryMutation}
           transform={transform}
           renderForm={(props) => (
             <CategoryEditForm {...props} iconOptions={iconOptions} />
           )}
           Resource={Category}
-          fixedCacheKey='shared-edit-category'
-          baseUrl='/categories'
+          fixedCacheKey="shared-edit-category"
+          baseUrl="/categories"
         ></EditBase>
       )}
     </EasyLoader>

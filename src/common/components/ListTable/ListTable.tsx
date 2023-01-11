@@ -1,16 +1,16 @@
-import { Table, Container, Loader } from '@gamiui/standard';
-import { ICell } from '@gamiui/standard/lib/types/designSystem/molecules/Table/Cell';
-import { UseQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { lightTheme } from '../../../../styles/design-system/theme';
-import { useSliceActions, useSliceSelector } from '../../../context';
-import { ResourceBase } from '../../types';
-import * as S from './styles';
+import { Table, Container, Loader } from "@gamiui/standard";
+import { ICell } from "@gamiui/standard/lib/types/designSystem/molecules/Table/Cell";
+import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { lightTheme } from "../../../../styles/design-system/theme";
+import { useSliceActions, useSliceSelector } from "../../../context";
+import { ResourceBase } from "../../types";
+import * as S from "./styles";
 
 export interface IListTable {
   rtkHook: UseQuery<any>;
-  columns: ICell['columns'];
+  columns: ICell["columns"];
   Resource: new (...args: any[]) => ResourceBase;
 }
 
@@ -28,7 +28,7 @@ export const ListTable = ({ rtkHook, columns, Resource }: IListTable) => {
       page: currentPage,
       search,
     },
-    id: '1',
+    id: "1",
   });
 
   const totalPages = (response as any)?.metaData?.pagination.totalPages ?? 0;
@@ -45,18 +45,18 @@ export const ListTable = ({ rtkHook, columns, Resource }: IListTable) => {
     <Container>
       <Table>
         <Table.Header columns={columns}>
-          {(column) => <Table.Column as='th'>{column.title}</Table.Column>}
+          {(column) => <Table.Column as="th">{column.title}</Table.Column>}
         </Table.Header>
 
         <S.LoaderListTable
-          as='tbody'
-          minHeight='200px'
-          behavior='none'
+          as="tbody"
+          minHeight="200px"
+          behavior="none"
           loaderNode={
             <tr>
-              <td colSpan={4}>
+              <td colSpan={columns.length}>
                 <Loader
-                  type='spinner'
+                  type="spinner"
                   background={lightTheme.primary.mediumPurple}
                 />
               </td>

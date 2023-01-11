@@ -39,14 +39,29 @@ export const NewCreateForm = ({
             label="Fecha Inicio"
             name="startDate"
           >
-            <DatePicker />
+            <DatePicker formatter="dd/MM/yyyy" />
           </Form.Item>
           <Form.Item
-            rules={[{ type: "required", message: "Campo requerido" }]}
+            rules={[
+              { type: "required", message: "Campo requerido" },
+              {
+                type: "custom",
+                message: "Fecha inicio es mayor que la fin",
+                fn: (value, formValues) => {
+                  const { startDate } = formValues;
+                  const dateStart = new Date(startDate);
+                  const dateEnd = new Date(value);
+
+                  const isGreaterThanDateEnd = dateStart > dateEnd;
+
+                  return !isGreaterThanDateEnd;
+                },
+              },
+            ]}
             label="Fecha Fin"
             name="endDate"
           >
-            <DatePicker formatter="dd/MM/yy" />
+            <DatePicker formatter="dd/MM/yyyy" />
           </Form.Item>
           <Form.Item
             rules={[{ type: "required", message: "Campo requerido" }]}

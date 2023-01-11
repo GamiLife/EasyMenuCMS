@@ -19,10 +19,17 @@ export default function EditNew() {
   });
 
   const transform = (values: any) => {
-    return {
+    const { imageUrl, startDate, endDate } = values;
+
+    const request = {
       ...values,
-      iconId: values.iconId.value,
+      startDate: new Date(startDate).toISOString(),
+      endDate: new Date(endDate).toISOString(),
+      companyId: "1",
+      imageUrl: imageUrl[0]?.file,
     };
+
+    return request;
   };
 
   const transformOnGet = (values: any) => new New(values).buildGet();
