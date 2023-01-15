@@ -1,28 +1,15 @@
-import { useRouter } from "next/router";
-import * as React from "react";
-import { useGetCategoryByIdQuery, useUpdateCategoryMutation } from "../../api";
-import { EasyLoader } from "../../common/components/EasyLoader";
-import { useEditController } from "../../common/hooks";
-import { LayoutWrapper } from "../../common/layouts";
-import { EditBase } from "../../common/resources";
-import { Category } from "../../common/types";
-import { CategoryEditForm } from "../../modules/category";
+import { useRouter } from 'next/router';
+import * as React from 'react';
+import { useGetCategoryByIdQuery, useUpdateCategoryMutation } from '../../api';
+import { EasyLoader } from '../../common/components/EasyLoader';
+import { useEditController, useFoodOptions } from '../../common/hooks';
+import { LayoutWrapper } from '../../common/layouts';
+import { EditBase } from '../../common/resources';
+import { Category } from '../../common/types';
+import { CategoryEditForm } from '../../modules/category';
 
 export default function EditCategory() {
-  const iconOptions = [
-    {
-      label: "Bebidas",
-      value: "bebidas",
-    },
-    {
-      value: "seafood",
-      label: "Comida Marina",
-    },
-    {
-      label: "Pastas",
-      value: "pastfood",
-    },
-  ];
+  const { foodIconsOptions } = useFoodOptions();
   const router = useRouter();
   const { pid } = router.query;
   const id = pid as string;
@@ -33,10 +20,13 @@ export default function EditCategory() {
   });
 
   const transform = (values: any) => {
+    const { imageCategory, iconId } = values;
+
     return {
       ...values,
       companyId: 1,
-      iconId: values.iconId.value,
+      iconId: iconId?.value,
+      imageCategory: imageCategory[0]?.file,
     };
   };
 
@@ -49,14 +39,12 @@ export default function EditCategory() {
           resourceId={id}
           defaultValue={transformOnGet({
             ...data,
-            iconOptions,
+            iconOptions: foodIconsOptions,
           })}
           resourceType="Category"
           rtkHook={useUpdateCategoryMutation}
           transform={transform}
-          renderForm={(props) => (
-            <CategoryEditForm {...props} iconOptions={iconOptions} />
-          )}
+          renderForm={(props) => <CategoryEditForm {...props} />}
           Resource={Category}
           fixedCacheKey="shared-edit-category"
           baseUrl="/categories"

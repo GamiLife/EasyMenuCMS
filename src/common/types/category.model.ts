@@ -12,6 +12,7 @@ interface ICategory extends IStoreModel {
   description: string;
   title: string;
   iconId: string;
+  imageCategory: string;
   company?: ICompany;
   iconOptions?: IIconOption[];
 }
@@ -19,6 +20,7 @@ interface ICategory extends IStoreModel {
 export class Category extends StoreModel implements ResourceBase {
   id?: ICategory['id'];
   title: ICategory['title'];
+  imageCategory: ICategory['imageCategory'];
   description: ICategory['description'];
   iconId: ICategory['iconId'];
   company?: ICategory['company'];
@@ -31,6 +33,7 @@ export class Category extends StoreModel implements ResourceBase {
     iconId,
     company,
     iconOptions,
+    imageCategory,
     ...storeProps
   }: ICategory) {
     super(storeProps);
@@ -39,37 +42,52 @@ export class Category extends StoreModel implements ResourceBase {
     this.title = title;
     this.description = description;
     this.iconId = iconId;
+    this.imageCategory = imageCategory;
     if (company) this.company = company;
     if (iconOptions) this.iconOptions = iconOptions;
   }
 
   buildCreateRequest() {
-    return {
-      title: this.title,
-      description: this.description,
-      iconId: this.iconId,
-      companyId: this.companyId,
-    };
+    const request = new FormData();
+    request.append('title', this.title);
+    request.append('description', this.description);
+    request.append('iconId', this.iconId);
+    request.append('companyId', '1');
+    request.append('file', this.imageCategory);
+
+    return request;
   }
 
   buildEditRequest() {
+    const request = new FormData();
+    request.append('title', this.title);
+    request.append('description', this.description);
+    request.append('iconId', this.iconId);
+    request.append('companyId', '1');
+    request.append('file', this.imageCategory);
+
     return {
-      body: {
-        title: this.title,
-        description: this.description,
-        iconId: this.iconId,
-        companyId: this.companyId,
-      },
+      body: request,
       id: this.id,
     };
   }
 
   buildGet() {
-    return {
+    const detail = {
       title: this.title,
       description: this.description,
       iconId: this.iconOptions?.find(({ value }) => this.iconId == value),
+      imageCategory: this.imageCategory
+        ? [
+            {
+              id: 1,
+              url: this.imageCategory,
+            },
+          ]
+        : [],
     };
+
+    return detail;
   }
 
   buildTableCols() {

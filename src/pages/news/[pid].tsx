@@ -1,12 +1,12 @@
-import { useRouter } from "next/router";
-import * as React from "react";
-import { useGetNewByIdQuery, useUpdateNewMutation } from "../../api";
-import { EasyLoader } from "../../common/components/EasyLoader";
-import { useEditController } from "../../common/hooks";
-import { LayoutWrapper } from "../../common/layouts";
-import { EditBase } from "../../common/resources";
-import { New } from "../../common/types";
-import { NewEditForm } from "../../modules/news";
+import { useRouter } from 'next/router';
+import * as React from 'react';
+import { useGetNewByIdQuery, useUpdateNewMutation } from '../../api';
+import { EasyLoader } from '../../common/components/EasyLoader';
+import { useEditController } from '../../common/hooks';
+import { LayoutWrapper } from '../../common/layouts';
+import { EditBase } from '../../common/resources';
+import { New } from '../../common/types';
+import { NewEditForm } from '../../modules/news';
 
 export default function EditNew() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function EditNew() {
       ...values,
       startDate: new Date(startDate).toISOString(),
       endDate: new Date(endDate).toISOString(),
-      companyId: "1",
+      companyId: '1',
       imageUrl: imageUrl[0]?.file,
     };
 

@@ -1,7 +1,7 @@
-import { EasyDayJS } from "../../../helpers/date";
-import { ResourceBase } from "./base.interface";
-import { ICompany } from "./company.model";
-import { IStoreModel, StoreModel } from "./store.model";
+import { EasyDayJS } from '../../../helpers/date';
+import { ResourceBase } from './base.interface';
+import { ICompany } from './company.model';
+import { IStoreModel, StoreModel } from './store.model';
 
 interface INew extends IStoreModel {
   id?: number;
@@ -15,14 +15,14 @@ interface INew extends IStoreModel {
 }
 
 export class New extends StoreModel implements ResourceBase {
-  id?: INew["id"];
-  title: INew["title"];
-  description: INew["description"];
-  imageUrl: INew["imageUrl"];
-  backgroundColor: INew["backgroundColor"];
-  startDate: INew["startDate"];
-  endDate: INew["endDate"];
-  company?: INew["company"];
+  id?: INew['id'];
+  title: INew['title'];
+  description: INew['description'];
+  imageUrl: INew['imageUrl'];
+  backgroundColor: INew['backgroundColor'];
+  startDate: INew['startDate'];
+  endDate: INew['endDate'];
+  company?: INew['company'];
 
   constructor({
     id,
@@ -49,26 +49,26 @@ export class New extends StoreModel implements ResourceBase {
 
   buildCreateRequest() {
     const request = new FormData();
-    request.append("title", this.title);
-    request.append("description", this.description);
-    request.append("backgroundColor", this.backgroundColor);
-    request.append("startDate", this.startDate);
-    request.append("endDate", this.endDate);
-    request.append("companyId", "1");
-    request.append("file", this.imageUrl);
+    request.append('title', this.title);
+    request.append('description', this.description);
+    request.append('backgroundColor', this.backgroundColor);
+    request.append('startDate', this.startDate);
+    request.append('endDate', this.endDate);
+    request.append('companyId', '1');
+    request.append('file', this.imageUrl);
 
     return request;
   }
 
   buildEditRequest() {
     const request = new FormData();
-    request.append("title", this.title);
-    request.append("description", this.description);
-    request.append("backgroundColor", this.backgroundColor);
-    request.append("startDate", this.startDate);
-    request.append("endDate", this.endDate);
-    request.append("companyId", "1");
-    request.append("file", this.imageUrl);
+    request.append('title', this.title);
+    request.append('description', this.description);
+    request.append('backgroundColor', this.backgroundColor);
+    request.append('startDate', this.startDate);
+    request.append('endDate', this.endDate);
+    request.append('companyId', '1');
+    request.append('file', this.imageUrl);
 
     return {
       body: request,
@@ -80,12 +80,12 @@ export class New extends StoreModel implements ResourceBase {
     return {
       title: this.title,
       description: this.description,
-      imageUrl: [
+      imageUrl: this.imageUrl ? [
         {
           id: 1,
           url: this.imageUrl,
         },
-      ],
+      ] : [],
       backgroundColor: this.backgroundColor,
       startDate: new Date(this.startDate),
       endDate: new Date(this.endDate),

@@ -1,16 +1,19 @@
-import * as React from "react";
-import { useAddCategoryMutation } from "../../api";
-import { LayoutWrapper } from "../../common/layouts";
-import { CreateBase } from "../../common/resources";
-import { Category } from "../../common/types";
-import { CategoryCreateForm } from "../../modules/category/CategoryCreateForm";
+import * as React from 'react';
+import { useAddCategoryMutation } from '../../api';
+import { LayoutWrapper } from '../../common/layouts';
+import { CreateBase } from '../../common/resources';
+import { Category } from '../../common/types';
+import { CategoryCreateForm } from '../../modules/category/CategoryCreateForm';
 
 export default function AddCategory() {
   const transform = (values: any) => {
+    const { imageCategory, iconId } = values;
+
     return {
       ...values,
       companyId: 1,
-      iconId: values.iconId.value,
+      iconId: iconId?.value,
+      imageCategory: imageCategory[0]?.file,
     };
   };
 
