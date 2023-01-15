@@ -4,10 +4,14 @@ import { Button, Container, Icon, Image } from '@gamiui/standard';
 import Link from 'next/link';
 import * as React from 'react';
 import { lightTheme } from '../../../styles/design-system/theme';
-import { useGetNewsByCompanyIdQuery } from '../../api';
+import {
+  useGetLocationsByCompanyIdQuery,
+  useGetNewsByCompanyIdQuery,
+} from '../../api';
 import { LayoutWrapper } from '../../common/layouts';
 import { ListBase, ListToolbar } from '../../common/resources';
 import { New } from '../../common/types';
+import { Location } from '../../common/types/location.model';
 import { categorySlice } from '../../store';
 
 export const Actions = styled(Container)`
@@ -15,32 +19,17 @@ export const Actions = styled(Container)`
   gap: 1rem;
 `;
 
-export default function News() {
+export default function Locations() {
   const columns = [
-    { title: 'NUMERO', dataIndex: 'number' },
-    { title: 'TITULO', dataIndex: 'title' },
-    { title: 'DESCRIPCION', dataIndex: 'description' },
-    {
-      title: 'IMAGEN',
-      dataIndex: 'imageUrl',
-      render: (imageUrl: string) => (
-        <Image
-          src={imageUrl}
-          alt=""
-          maxWidth="200px"
-          minHeight="20px"
-          width="100%"
-        />
-      ),
-    },
-    { title: 'FECHA INICIO', dataIndex: 'startDate' },
-    { title: 'FECHA VENC.', dataIndex: 'endDate' },
+    { title: 'NOMBRE', dataIndex: 'name' },
+    { title: 'DIRECCION', dataIndex: 'address' },
+    { title: 'TELEFONO', dataIndex: 'phone' },
     {
       title: 'ACCIONES',
       dataIndex: 'actions',
       render: (id: string) => (
         <Actions className="flex">
-          <Link href={`/news/${id}`}>
+          <Link href={`/locations/${id}`}>
             <Button variant="secondary" bordered shadow="none">
               <Icon name="preview" color={lightTheme.primary.mediumPurple} />
             </Button>
@@ -54,14 +43,14 @@ export default function News() {
   ];
   return (
     <ListBase
-      Resource={New}
+      Resource={Location}
       columns={columns}
       slice={categorySlice}
-      rtkHook={useGetNewsByCompanyIdQuery}
+      rtkHook={useGetLocationsByCompanyIdQuery}
       listToolbar={
         <ListToolbar
           renderActions={() => (
-            <Link href="/news/create">
+            <Link href="/locations/create">
               <Button>Crear</Button>
             </Link>
           )}
@@ -71,6 +60,6 @@ export default function News() {
   );
 }
 
-News.getLayout = (children: React.ReactNode) => (
+Locations.getLayout = (children: React.ReactNode) => (
   <LayoutWrapper>{children}</LayoutWrapper>
 );

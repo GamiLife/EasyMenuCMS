@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { categoryApi } from './category';
+import { locationApi } from './locations';
 import { newApi } from './new';
 
 export const easyMenuApi = createApi({
@@ -10,6 +11,7 @@ export const easyMenuApi = createApi({
   endpoints: (builder) => ({
     ...categoryApi(builder),
     ...newApi(builder),
+    ...locationApi(builder),
   }),
 });
 
@@ -24,6 +26,11 @@ export const {
   useGetNewsByCompanyIdQuery,
   useAddNewMutation,
   useUpdateNewMutation,
+
+  useGetLocationByIdQuery,
+  useGetLocationsByCompanyIdQuery,
+  useAddLocationMutation,
+  useUpdateLocationMutation,
 } = easyMenuApi;
 
 export const endpoints = {
@@ -36,5 +43,10 @@ export const endpoints = {
     pagination: useGetNewsByCompanyIdQuery,
     create: useAddNewMutation,
     udpate: useUpdateCategoryMutation,
+  },
+  locations: {
+    pagination: useGetLocationsByCompanyIdQuery,
+    create: useAddLocationMutation,
+    udpate: useUpdateLocationMutation,
   },
 };

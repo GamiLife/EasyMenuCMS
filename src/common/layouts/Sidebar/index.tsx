@@ -13,8 +13,8 @@ export const Sidebar = ({}: ISidebar) => {
     .at(0);
 
   return (
-    <S.Sidebar padding='3rem 1rem'>
-      <Link href='/'>
+    <S.Sidebar padding="3rem 1rem">
+      <Link href="/">
         <S.Item
           className={classNames({
             active: !basePath,
@@ -23,7 +23,16 @@ export const Sidebar = ({}: ISidebar) => {
           Home
         </S.Item>
       </Link>
-      <Link href='/categories'>
+      <Link href="/locations">
+        <S.Item
+          className={classNames({
+            active: basePath === 'locations',
+          })}
+        >
+          Locales
+        </S.Item>
+      </Link>
+      <Link href="/categories">
         <S.Item
           className={classNames({
             active: basePath === 'categories',
@@ -32,7 +41,7 @@ export const Sidebar = ({}: ISidebar) => {
           Categorias
         </S.Item>
       </Link>
-      <Link href='/news'>
+      <Link href="/news">
         <S.Item
           className={classNames({
             active: basePath === 'news',
@@ -41,7 +50,7 @@ export const Sidebar = ({}: ISidebar) => {
           Noticias
         </S.Item>
       </Link>
-      <Link href='/sauces'>
+      <Link href="/sauces">
         <S.Item
           className={classNames({
             active: basePath === 'sauces',
@@ -50,7 +59,7 @@ export const Sidebar = ({}: ISidebar) => {
           Salsas
         </S.Item>
       </Link>
-      <Link href='/dishes'>
+      <Link href="/dishes">
         <S.Item
           className={classNames({
             active: basePath === 'dishes',
