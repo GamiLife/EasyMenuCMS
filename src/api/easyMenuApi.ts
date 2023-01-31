@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { categoryApi } from './category';
 import { locationApi } from './locations';
 import { newApi } from './new';
+import { staticPagesApi } from './staticPages';
 
 export const easyMenuApi = createApi({
   reducerPath: 'easyMenuApi',
@@ -12,6 +13,7 @@ export const easyMenuApi = createApi({
     ...categoryApi(builder),
     ...newApi(builder),
     ...locationApi(builder),
+    ...staticPagesApi(builder),
   }),
 });
 
@@ -31,6 +33,11 @@ export const {
   useGetLocationsByCompanyIdQuery,
   useAddLocationMutation,
   useUpdateLocationMutation,
+
+  useGetStaticPagesByIdQuery,
+  useGetStaticPagesByCompanyIdQuery,
+  useAddStaticPageMutation,
+  useUpdateStaticPageMutation,
 } = easyMenuApi;
 
 export const endpoints = {
@@ -48,5 +55,10 @@ export const endpoints = {
     pagination: useGetLocationsByCompanyIdQuery,
     create: useAddLocationMutation,
     udpate: useUpdateLocationMutation,
+  },
+  'static-pages': {
+    pagination: useGetStaticPagesByCompanyIdQuery,
+    create: useAddStaticPageMutation,
+    udpate: useUpdateStaticPageMutation,
   },
 };

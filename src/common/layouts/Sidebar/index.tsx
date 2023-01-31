@@ -23,6 +23,15 @@ export const Sidebar = ({}: ISidebar) => {
           Home
         </S.Item>
       </Link>
+      <Link href="/static-pages">
+        <S.Item
+          className={classNames({
+            active: basePath === 'static-pages',
+          })}
+        >
+          Paginas Estaticas
+        </S.Item>
+      </Link>
       <Link href="/locations">
         <S.Item
           className={classNames({

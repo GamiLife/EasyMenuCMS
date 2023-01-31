@@ -16,10 +16,15 @@ export interface IListBase {
   Resource: new (...args: any[]) => ResourceBase;
 }
 
-const ListBasePure = ({ listToolbar, rtkHook, columns,Resource }: IListBase) => {
+const ListBasePure = ({
+  listToolbar,
+  rtkHook,
+  columns,
+  Resource,
+}: IListBase) => {
   return (
     <React.Fragment>
-      <Container padding='1rem' className={classNames('listbase')}>
+      <Container padding="1rem" className={classNames('listbase')}>
         {listToolbar}
 
         <Container>

@@ -6,3 +6,4 @@ export * from './store.model';
 export * from './base.interface';
 export * from './company.model';
 export * from './new.model';
+export * from './static-pages.model';
