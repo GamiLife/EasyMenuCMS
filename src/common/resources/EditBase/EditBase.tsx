@@ -37,7 +37,6 @@ export const EditBase = ({
   fixedCacheKey,
   baseUrl,
 }: IEditBase) => {
-  const companyId = 1;
   const router = useRouter();
   const [execute, { isLoading, isError, isSuccess }] = rtkHook({
     fixedCacheKey,

@@ -3,6 +3,7 @@ import { categoryApi } from './category';
 import { locationApi } from './locations';
 import { newApi } from './new';
 import { staticPagesApi } from './staticPages';
+import { companyApi } from './company';
 
 export const easyMenuApi = createApi({
   reducerPath: 'easyMenuApi',
@@ -14,6 +15,7 @@ export const easyMenuApi = createApi({
     ...newApi(builder),
     ...locationApi(builder),
     ...staticPagesApi(builder),
+    ...companyApi(builder),
   }),
 });
 
@@ -38,6 +40,9 @@ export const {
   useGetStaticPagesByCompanyIdQuery,
   useAddStaticPageMutation,
   useUpdateStaticPageMutation,
+
+  useGetCompanyByIdQuery,
+  useUpdateCompanyMutation,
 } = easyMenuApi;
 
 export const endpoints = {
@@ -60,5 +65,8 @@ export const endpoints = {
     pagination: useGetStaticPagesByCompanyIdQuery,
     create: useAddStaticPageMutation,
     udpate: useUpdateStaticPageMutation,
+  },
+  company: {
+    udpate: useUpdateCompanyMutation,
   },
 };

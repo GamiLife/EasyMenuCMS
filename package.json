@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@gamilife/node-components.core.core": "npm:@my-scope/core.core@^1.0.0",
     "@gamiui/standard": "^0.1.0-alpha.98",
     "@nextui-org/react": "^1.0.0-beta.10",
     "@reduxjs/toolkit": "^1.9.0",
@@ -23,7 +24,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-draft-wysiwyg": "^1.15.0",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "redux-persist": "^6.0.0",
+    "reduxjs-toolkit-persist": "^7.2.1"
   },
   "devDependencies": {
     "@types/draftjs-to-html": "^0.8.1",

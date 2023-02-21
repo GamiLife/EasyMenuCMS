@@ -4,7 +4,8 @@ import { ThemeGamification } from '@gamiui/standard';
 import React from 'react';
 import { NextComponentType, NextPageContext } from 'next';
 import { Provider } from 'react-redux';
-import { store } from '../store/store';
+import { persistor, store } from '../store/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 type TComponent = NextComponentType<NextPageContext, any, any> & {
   getLayout: (children: React.ReactNode) => React.ReactNode;
@@ -17,9 +18,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
-      <ThemeGamification>
-        {getLayout(<Component {...pageProps} />)}
-      </ThemeGamification>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeGamification>
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeGamification>
+      </PersistGate>
     </Provider>
   );
 }
