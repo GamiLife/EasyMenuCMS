@@ -15,12 +15,6 @@ export const CompanyEditForm = ({
     <S.BaseForm>
       <S.FormContent className={classnames('flex', 'justify-between')}>
         <CompanyForm form={form} handleSubmit={handleSubmit} />
-        <Image
-          maxWidth="600px"
-          maxHeight="500px"
-          alt="form_image"
-          src="https://i.imgur.com/e226gZx.png"
-        />
       </S.FormContent>
 
       <S.FormFooter>

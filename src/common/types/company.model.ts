@@ -91,7 +91,8 @@ export class Company implements ResourceBase {
       name: this.name,
       description: this.description,
       slugUrl: this.slugUrl,
-      brand: this.brand,
+      metaTitle: this.brand.metaTitle,
+      metaDescription: this.brand.metaDescription,
       theme: this.theme,
       socialNetworks: this.socialNetworks,
     };
