@@ -47,7 +47,6 @@ export const CompanyForm = ({ form, handleSubmit }: ICompanyForm) => {
           <Input placeholder="Meta Description" width="full" />
         </Form.Item>
       </Container>
-      <SiteEditor />
     </S.FormContainer>
   );
 };

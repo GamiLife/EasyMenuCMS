@@ -4,10 +4,11 @@ import { easyMenuApi } from '../api';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { companyPersistReducer } from './persistor';
-import { categoryReducers } from './slice';
+import { categoryReducers, siteEditorReducers } from './slice';
 
 const rootReducer = combineReducers({
   categories: categoryReducers,
+  siteEditor: siteEditorReducers,
   company: companyPersistReducer,
   [easyMenuApi.reducerPath]: easyMenuApi.reducer,
 });
