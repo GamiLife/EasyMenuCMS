@@ -72,7 +72,7 @@ export const SiteEditor = () => {
       {
         type: 'block-edit',
         message: {
-          ...blockSelected,
+          blockId: blockSelected?.blockId,
           background: colorPicked,
         },
       },
@@ -80,7 +80,47 @@ export const SiteEditor = () => {
     );
   };
 
+  const handleChangeColor = (colorPicked: string) => {
+    frameRef.current.contentWindow.postMessage(
+      {
+        type: 'block-edit',
+        message: {
+          blockId: blockSelected?.blockId,
+          color: colorPicked,
+        },
+      },
+      base
+    );
+  };
+
+  const handleRollback = () => {
+    frameRef.current.contentWindow.postMessage(
+      {
+        type: 'block-edit-rollback',
+        message: {
+          blockId: blockSelected?.blockId,
+        },
+      },
+      base
+    );
+  };
+
+  const handleSubmit = (colorPicked: string, backgroundPicked: string) => {
+    frameRef.current.contentWindow.postMessage(
+      {
+        type: 'block-edit-submit',
+        message: {
+          blockId: blockSelected?.blockId,
+          background: backgroundPicked,
+          color: colorPicked,
+        },
+      },
+      base
+    );
+  };
+
   const handleBackEditor = () => {
+    handleRollback();
     dispatch(
       siteEditorSlice.actions.setBlockIdSelected({
         blockId: '',
@@ -153,6 +193,15 @@ export const SiteEditor = () => {
                   label="Background"
                   name="background"
                   onChange={handleChangeBackground}
+                >
+                  <ColorPicker />
+                </Form.Item>
+
+                <Form.Item
+                  rules={[{ type: 'required', message: 'Campo requerido' }]}
+                  label="Color"
+                  name="color"
+                  onChange={handleChangeColor}
                 >
                   <ColorPicker />
                 </Form.Item>
