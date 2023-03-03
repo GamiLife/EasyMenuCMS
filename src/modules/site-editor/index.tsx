@@ -141,6 +141,13 @@ export const SiteEditor = () => {
     toolbarActionProp: ISiteEditorState['toolbarAction']
   ) => {
     const picked = pickToolbacAction(toolbarActionProp);
+    frameRef.current.contentWindow.postMessage(
+      {
+        type: 'enable-hover',
+        message: picked === 'cursor-selected',
+      },
+      base
+    );
     dispatch(siteEditorSlice.actions.setToolbarAction(picked));
   };
 
