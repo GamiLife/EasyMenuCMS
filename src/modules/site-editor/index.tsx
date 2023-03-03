@@ -43,7 +43,6 @@ export const SiteEditor = () => {
   useEffect(() => {
     window.addEventListener('message', (event) => {
       if (event.origin !== base) return;
-      console.log(event.data, 'test pass!');
       const { type, message } = event.data;
 
       if (!type) return;
@@ -64,7 +63,6 @@ export const SiteEditor = () => {
   }, []);
 
   const handleSubmitForm = (values: any) => {
-    console.log('test', values);
   };
 
   const handleChangeBackground = (colorPicked: string) => {

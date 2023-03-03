@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { siteEditorReducer } from '../reducer/siteEditorReducer';
+import { lightTheme } from '../../../styles/design-system/theme';
 
 export interface IBlockEditor {
   blockId: string;
@@ -18,19 +20,49 @@ export interface ISiteEditorState {
 export const siteEditorInitialState: ISiteEditorState = {
   blocks: [
     {
-      blockId: 'category-container',
-      background: 'white',
-      color: '',
+      blockId: 'header-container',
+      background: `${lightTheme.primary.white}`,
+      color: `${lightTheme.primary.black}`,
     },
     {
-      blockId: 'header-container',
-      background: 'white',
-      color: '',
+      blockId: 'categories-container',
+      background: `${lightTheme.primary.white}`,
+      color: `${lightTheme.primary.black}`,
+    },
+    {
+      blockId: 'wrapper-page',
+      background: `${lightTheme.primary.second}`,
+      color: `${lightTheme.primary.black}`,
+    },
+    {
+      blockId: 'product-card',
+      background: `${lightTheme.primary.white}`,
+      color: `${lightTheme.primary.black}`,
+    },
+    {
+      blockId: 'shipping-button',
+      background: `${lightTheme.primary.first}`,
+      color: `${lightTheme.primary.white}`,
     },
     {
       blockId: 'footer-container',
-      background: 'blue',
-      color: '',
+      background: `${lightTheme.primary.first}`,
+      color: `${lightTheme.primary.white}`,
+    },
+    {
+      blockId: 'scroll-button',
+      background: `${lightTheme.primary.mediumPurple}`,
+      color: `${lightTheme.primary.white}`,
+    },
+    {
+      blockId: 'container-selection-area',
+      background: `${lightTheme.primary.white}`,
+    color: `${lightTheme.primary.black}`,
+    },
+    {
+      blockId: 'location-card',
+      background: `${lightTheme.primary.white}`,
+      color: `${lightTheme.primary.black}`,
     },
   ],
   toolbarAction: '',
