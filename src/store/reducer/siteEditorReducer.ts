@@ -43,4 +43,11 @@ export const siteEditorReducer = {
     const { payload } = action;
     state.toolbarAction = payload;
   },
+  setSideEditorState(
+    state: WritableDraft<ISiteEditorState>,
+    action: IAction<ISiteEditorState['siteEditorState']>
+  ) {
+    const { payload } = action;
+    state.siteEditorState = payload;
+  },
 };

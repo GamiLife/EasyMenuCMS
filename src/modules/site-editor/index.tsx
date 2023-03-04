@@ -1,26 +1,21 @@
-import { Container, Form, ColorPicker, Button, Icon } from '@gamiui/standard';
+import { Container, Icon } from '@gamiui/standard';
 import classNames from 'classnames';
 import { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as S from '../../../styles/common/resource-form';
 import { lightTheme } from '../../../styles/design-system/theme';
-import { ISiteEditorState, siteEditorSlice } from '../../store';
+import {
+  ISiteEditorState,
+  siteEditorSlice,
+  TSiteEditorState,
+} from '../../store';
 import { RootState } from '../../store/store';
-import * as OwnS from './styles';
 
-type TSiteEditorState = 'blocks' | 'editor';
+import * as OwnS from './styles';
+import { SiteEditorForm } from './SiteEditorForm';
 
 export const SiteEditor = () => {
-  const [siteEditorState, setSiteEditorState] =
-    useState<TSiteEditorState>('blocks');
-
-  const { blocks, blockIdSelected, toolbarAction } = useSelector(
-    (state: RootState) => state.siteEditor
-  );
-
-  const blockSelected = blocks.find(
-    ({ blockId }) => blockIdSelected === blockId
-  );
+  const { blocks, blockIdSelected, toolbarAction, siteEditorState } =
+    useSelector((state: RootState) => state.siteEditor);
   const dispatch = useDispatch();
 
   const frameRef = useRef<any>();
@@ -35,9 +30,13 @@ export const SiteEditor = () => {
     );
   };
 
+  const handleSiteEditorState = (siteEditorStateProp: TSiteEditorState) => {
+    dispatch(siteEditorSlice.actions.setSideEditorState(siteEditorStateProp));
+  };
+
   useEffect(() => {
-    if (!blockIdSelected) return setSiteEditorState('blocks');
-    setSiteEditorState('editor');
+    if (!blockIdSelected) return handleSiteEditorState('blocks');
+    handleSiteEditorState('editor');
   }, [blockIdSelected]);
 
   useEffect(() => {
@@ -49,6 +48,7 @@ export const SiteEditor = () => {
       if (type === 'block-selection' && message) {
         const { blockId } = message;
         handleBlockIdSelected(blockId);
+        handlePickToolbarAction('');
         return;
       }
     });
@@ -60,71 +60,7 @@ export const SiteEditor = () => {
       },
       base
     );
-  }, []);
-
-  const handleSubmitForm = (values: any) => {
-  };
-
-  const handleChangeBackground = (colorPicked: string) => {
-    frameRef.current.contentWindow.postMessage(
-      {
-        type: 'block-edit',
-        message: {
-          blockId: blockSelected?.blockId,
-          background: colorPicked,
-        },
-      },
-      base
-    );
-  };
-
-  const handleChangeColor = (colorPicked: string) => {
-    frameRef.current.contentWindow.postMessage(
-      {
-        type: 'block-edit',
-        message: {
-          blockId: blockSelected?.blockId,
-          color: colorPicked,
-        },
-      },
-      base
-    );
-  };
-
-  const handleRollback = () => {
-    frameRef.current.contentWindow.postMessage(
-      {
-        type: 'block-edit-rollback',
-        message: {
-          blockId: blockSelected?.blockId,
-        },
-      },
-      base
-    );
-  };
-
-  const handleSubmit = (colorPicked: string, backgroundPicked: string) => {
-    frameRef.current.contentWindow.postMessage(
-      {
-        type: 'block-edit-submit',
-        message: {
-          blockId: blockSelected?.blockId,
-          background: backgroundPicked,
-          color: colorPicked,
-        },
-      },
-      base
-    );
-  };
-
-  const handleBackEditor = () => {
-    handleRollback();
-    dispatch(
-      siteEditorSlice.actions.setBlockIdSelected({
-        blockId: '',
-      })
-    );
-  };
+  }, [toolbarAction]);
 
   const pickToolbacAction = (
     toolbarActionProp: ISiteEditorState['toolbarAction']
@@ -147,6 +83,26 @@ export const SiteEditor = () => {
       base
     );
     dispatch(siteEditorSlice.actions.setToolbarAction(picked));
+  };
+
+  const handleMouseEnterOnBlockSidebar = (blockId: string) => {
+    frameRef.current.contentWindow.postMessage(
+      {
+        type: 'hover-block-from-sidebar',
+        message: blockId,
+      },
+      base
+    );
+  };
+
+  const handleMouseLeaveOnBlockSidebar = () => {
+    frameRef.current.contentWindow.postMessage(
+      {
+        type: 'hover-block-from-sidebar',
+        message: '',
+      },
+      base
+    );
   };
 
   return (
@@ -179,6 +135,8 @@ export const SiteEditor = () => {
                 <OwnS.SiteBlock
                   padding="1rem 3px"
                   key={blockId}
+                  onMouseEnter={() => handleMouseEnterOnBlockSidebar(blockId)}
+                  onMouseLeave={() => handleMouseLeaveOnBlockSidebar()}
                   onClick={() => handleBlockIdSelected(blockId)}
                 >
                   {blockId}
@@ -188,51 +146,7 @@ export const SiteEditor = () => {
           )}
 
           {siteEditorState === 'editor' && (
-            <OwnS.SiteContent padding="0 1rem">
-              <S.FormContainer
-                style={{ padding: 0, marginTop: '15px' }}
-                onSubmitForm={handleSubmitForm}
-              >
-                <Form.Item
-                  rules={[{ type: 'required', message: 'Campo requerido' }]}
-                  label="Background"
-                  name="background"
-                  onChange={handleChangeBackground}
-                >
-                  <ColorPicker />
-                </Form.Item>
-
-                <Form.Item
-                  rules={[{ type: 'required', message: 'Campo requerido' }]}
-                  label="Color"
-                  name="color"
-                  onChange={handleChangeColor}
-                >
-                  <ColorPicker />
-                </Form.Item>
-              </S.FormContainer>
-
-              <OwnS.SiteEditorFooter>
-                <Button
-                  width="full"
-                  type="submit"
-                  variant="primary"
-                  rounded="sm"
-                  bordered
-                  onClick={handleBackEditor}
-                >
-                  Regresar
-                </Button>
-                <Button
-                  width="full"
-                  type="submit"
-                  variant="primary"
-                  rounded="sm"
-                >
-                  Enviar
-                </Button>
-              </OwnS.SiteEditorFooter>
-            </OwnS.SiteContent>
+            <SiteEditorForm frameRef={frameRef} />
           )}
         </OwnS.SiteEditorMenu>
       </OwnS.SiteEditor>
