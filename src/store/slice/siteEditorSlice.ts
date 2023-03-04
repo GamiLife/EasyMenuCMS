@@ -40,6 +40,11 @@ export const siteEditorInitialState: ISiteEditorState = {
       color: `${lightTheme.primary.black}`,
     },
     {
+      blockId: 'wish-list-icon',
+      background: `${lightTheme.primary.white}`,
+      color: `${lightTheme.primary.first}`,
+    },
+    {
       blockId: 'shipping-button',
       background: `${lightTheme.primary.first}`,
       color: `${lightTheme.primary.white}`,
