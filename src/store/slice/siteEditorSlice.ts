@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { siteEditorReducer } from '../reducer/siteEditorReducer';
 import { lightTheme } from '../../../styles/design-system/theme';
 
+export type TSiteEditorState = 'blocks' | 'editor';
 export interface IBlockEditor {
   blockId: string;
   background?: string;
@@ -15,6 +16,7 @@ export interface ISiteEditorState {
   blocks: IBlockEditor[];
   blockIdSelected?: string;
   toolbarAction?: TToolbarAction;
+  siteEditorState: TSiteEditorState;
 }
 
 export const siteEditorInitialState: ISiteEditorState = {
@@ -62,7 +64,7 @@ export const siteEditorInitialState: ISiteEditorState = {
     {
       blockId: 'container-selection-area',
       background: `${lightTheme.primary.white}`,
-    color: `${lightTheme.primary.black}`,
+      color: `${lightTheme.primary.black}`,
     },
     {
       blockId: 'location-card',
@@ -70,6 +72,7 @@ export const siteEditorInitialState: ISiteEditorState = {
       color: `${lightTheme.primary.black}`,
     },
   ],
+  siteEditorState: 'blocks',
   toolbarAction: '',
 };
 
