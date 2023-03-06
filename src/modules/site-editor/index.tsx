@@ -13,6 +13,8 @@ import { RootState } from '../../store/store';
 import * as OwnS from './styles';
 import { SiteEditorForm } from './SiteEditorForm';
 
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
+
 export const SiteEditor = () => {
   const { blocks, blockIdSelected, toolbarAction, siteEditorState } =
     useSelector((state: RootState) => state.siteEditor);
@@ -105,13 +107,26 @@ export const SiteEditor = () => {
     );
   };
 
+  const handle = useFullScreenHandle();
+
   return (
+    <FullScreen handle={handle}>
     <Container width="full" padding="1rem">
       <OwnS.SiteEditorToolbar
         className={classNames('flex', 'justify-between', 'items-center')}
       >
         <OwnS.SiteTitle level="h2">Site Editor:</OwnS.SiteTitle>
         <OwnS.Toolbar>
+          <OwnS.ToolbarItem>
+            <button onClick={handle.enter}>
+            Enter fullscreen
+            </button>
+          </OwnS.ToolbarItem>
+          <OwnS.ToolbarItem>
+            <button onClick={handle.exit}>
+              Exit
+            </button>
+          </OwnS.ToolbarItem>
           <OwnS.ToolbarItem
             onClick={() => handlePickToolbarAction('cursor-selected')}
             className={classNames({
@@ -151,5 +166,6 @@ export const SiteEditor = () => {
         </OwnS.SiteEditorMenu>
       </OwnS.SiteEditor>
     </Container>
+      </FullScreen>
   );
 };
