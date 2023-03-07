@@ -111,61 +111,57 @@ export const SiteEditor = () => {
 
   return (
     <FullScreen handle={handle}>
-    <Container width="full" padding="1rem">
-      <OwnS.SiteEditorToolbar
-        className={classNames('flex', 'justify-between', 'items-center')}
-      >
-        <OwnS.SiteTitle level="h2">Site Editor:</OwnS.SiteTitle>
-        <OwnS.Toolbar>
-          <OwnS.ToolbarItem>
-            <button onClick={handle.enter}>
-            Enter fullscreen
-            </button>
-          </OwnS.ToolbarItem>
-          <OwnS.ToolbarItem>
-            <button onClick={handle.exit}>
-              Exit
-            </button>
-          </OwnS.ToolbarItem>
-          <OwnS.ToolbarItem
-            onClick={() => handlePickToolbarAction('cursor-selected')}
-            className={classNames({
-              selected: toolbarAction === 'cursor-selected',
-            })}
-          >
-            <Icon name="check" color={lightTheme.primary.mediumPurple} />
-          </OwnS.ToolbarItem>
-        </OwnS.Toolbar>
-      </OwnS.SiteEditorToolbar>
-      <OwnS.SiteEditor width="full" className={classNames('flex')}>
-        <OwnS.SiteEditorFrame ref={frameRef} src={origin} />
-        <OwnS.SiteEditorMenu>
-          <OwnS.SiteEditorTitle level="h3" width="full">
-            EasyEditor
-          </OwnS.SiteEditorTitle>
+      <Container width="full" padding="1rem">
+        <OwnS.SiteEditorToolbar
+          className={classNames('flex', 'justify-between', 'items-center')}
+        >
+          <OwnS.SiteTitle level="h2">Site Editor:</OwnS.SiteTitle>
+          <OwnS.Toolbar>
+            <OwnS.ToolbarItem>
+              <button onClick={handle.enter}>Enter fullscreen</button>
+            </OwnS.ToolbarItem>
+            <OwnS.ToolbarItem>
+              <button onClick={handle.exit}>Exit</button>
+            </OwnS.ToolbarItem>
+            <OwnS.ToolbarItem
+              onClick={() => handlePickToolbarAction('cursor-selected')}
+              className={classNames({
+                selected: toolbarAction === 'cursor-selected',
+              })}
+            >
+              <Icon name="check" color={lightTheme.primary.mediumPurple} />
+            </OwnS.ToolbarItem>
+          </OwnS.Toolbar>
+        </OwnS.SiteEditorToolbar>
+        <OwnS.SiteEditor width="full" className={classNames('flex')}>
+          <OwnS.SiteEditorFrame ref={frameRef} src={origin} />
+          <OwnS.SiteEditorMenu>
+            <OwnS.SiteEditorTitle level="h3" width="full">
+              EasyEditor
+            </OwnS.SiteEditorTitle>
 
-          {siteEditorState === 'blocks' && (
-            <OwnS.SiteContent>
-              {blocks.map(({ blockId }) => (
-                <OwnS.SiteBlock
-                  padding="1rem 3px"
-                  key={blockId}
-                  onMouseEnter={() => handleMouseEnterOnBlockSidebar(blockId)}
-                  onMouseLeave={() => handleMouseLeaveOnBlockSidebar()}
-                  onClick={() => handleBlockIdSelected(blockId)}
-                >
-                  {blockId}
-                </OwnS.SiteBlock>
-              ))}
-            </OwnS.SiteContent>
-          )}
+            {siteEditorState === 'blocks' && (
+              <OwnS.SiteContent>
+                {blocks.map(({ blockId }) => (
+                  <OwnS.SiteBlock
+                    padding="1rem 3px"
+                    key={blockId}
+                    onMouseEnter={() => handleMouseEnterOnBlockSidebar(blockId)}
+                    onMouseLeave={() => handleMouseLeaveOnBlockSidebar()}
+                    onClick={() => handleBlockIdSelected(blockId)}
+                  >
+                    {blockId}
+                  </OwnS.SiteBlock>
+                ))}
+              </OwnS.SiteContent>
+            )}
 
-          {siteEditorState === 'editor' && (
-            <SiteEditorForm frameRef={frameRef} />
-          )}
-        </OwnS.SiteEditorMenu>
-      </OwnS.SiteEditor>
-    </Container>
-      </FullScreen>
+            {siteEditorState === 'editor' && (
+              <SiteEditorForm frameRef={frameRef} />
+            )}
+          </OwnS.SiteEditorMenu>
+        </OwnS.SiteEditor>
+      </Container>
+    </FullScreen>
   );
 };
