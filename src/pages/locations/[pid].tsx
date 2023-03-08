@@ -1,12 +1,13 @@
-import { useRouter } from 'next/router';
 import * as React from 'react';
+import { useRouter } from 'next/router';
+
 import { useGetLocationByIdQuery, useUpdateLocationMutation } from '../../api';
-import { EasyLoader } from '../../common/components/EasyLoader';
 import { useEditController } from '../../common/hooks';
+import { LocationEditForm } from '../../modules/locations';
 import { LayoutWrapper } from '../../common/layouts';
+import { EasyLoader } from '../../common/components/EasyLoader';
 import { EditBase } from '../../common/resources';
 import { Location } from '../../common/types/location.model';
-import { LocationEditForm } from '../../modules/locations';
 
 export default function EditNew() {
   const router = useRouter();

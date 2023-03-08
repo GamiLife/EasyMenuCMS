@@ -1,18 +1,18 @@
+import * as React from 'react';
+import Link from 'next/link';
 import styled from '@emotion/styled';
 import { Button, Container, Icon, Image } from '@gamiui/standard';
 
-import Link from 'next/link';
-import * as React from 'react';
-import { lightTheme } from '../../../styles/design-system/theme';
 import {
   useGetLocationsByCompanyIdQuery,
   useGetNewsByCompanyIdQuery,
 } from '../../api';
-import { LayoutWrapper } from '../../common/layouts';
 import { ListBase, ListToolbar } from '../../common/resources';
-import { New } from '../../common/types';
-import { Location } from '../../common/types/location.model';
 import { categorySlice } from '../../store';
+import { LayoutWrapper } from '../../common/layouts';
+import { lightTheme } from '../../../styles/design-system/theme';
+import { Location } from '../../common/types';
+import { New } from '../../common/types';
 
 export const Actions = styled(Container)`
   display: flex;
