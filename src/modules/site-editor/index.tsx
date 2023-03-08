@@ -1,19 +1,18 @@
-import { Container, Icon } from '@gamiui/standard';
-import classNames from 'classnames';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { lightTheme } from '../../../styles/design-system/theme';
+import { Container, Icon } from '@gamiui/standard';
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
+import classNames from 'classnames';
+
 import {
   ISiteEditorState,
   siteEditorSlice,
   TSiteEditorState,
 } from '../../store';
-import { RootState } from '../../store/store';
-
-import * as OwnS from './styles';
 import { SiteEditorForm } from './SiteEditorForm';
-
-import { FullScreen, useFullScreenHandle } from 'react-full-screen';
+import { lightTheme } from '../../../styles/design-system/theme';
+import { RootState } from '../../store/store';
+import * as OwnS from './styles';
 
 export const SiteEditor = () => {
   const { blocks, blockIdSelected, toolbarAction, siteEditorState } =
@@ -117,12 +116,15 @@ export const SiteEditor = () => {
         >
           <OwnS.SiteTitle level="h2">Site Editor:</OwnS.SiteTitle>
           <OwnS.Toolbar>
-            <OwnS.ToolbarItem>
-              <button onClick={handle.enter}>Enter fullscreen</button>
-            </OwnS.ToolbarItem>
-            <OwnS.ToolbarItem>
-              <button onClick={handle.exit}>Exit</button>
-            </OwnS.ToolbarItem>
+            {handle.active ? (
+              <OwnS.ToolbarItem onClick={handle.exit}>
+                <Icon name="close" color={lightTheme.primary.mediumPurple} />
+              </OwnS.ToolbarItem>
+            ) : (
+              <OwnS.ToolbarItem onClick={handle.enter}>
+                <Icon name="controls" color={lightTheme.primary.mediumPurple} />
+              </OwnS.ToolbarItem>
+            )}
             <OwnS.ToolbarItem
               onClick={() => handlePickToolbarAction('cursor-selected')}
               className={classNames({
