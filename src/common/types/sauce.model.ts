@@ -2,17 +2,12 @@ import { IStoreModel, StoreModel } from './store.model';
 import { ResourceBase } from './base.interface';
 import { ICompany } from './company.model';
 
-interface IIconOption {
-  value: string;
-  label: string;
-}
-
 interface ISauce extends IStoreModel {
   id?: number;
   title: string;
   description: string;
+  imageUrl: string;
   price: number;
-  image: string;
   company?: ICompany;
 }
 
@@ -20,16 +15,16 @@ export class Sauce extends StoreModel implements ResourceBase {
   id?: ISauce['id'];
   title: ISauce['title'];
   description: ISauce['description'];
+  imageUrl: ISauce['imageUrl'];
   price: ISauce['price'];
-  image: ISauce['image'];
   company?: ISauce['company'];
 
   constructor({
     id,
     title,
     description,
+    imageUrl,
     price,
-    image,
     company,
     ...storeProps
   }: ISauce) {
@@ -38,8 +33,8 @@ export class Sauce extends StoreModel implements ResourceBase {
     this.id = id;
     this.title = title;
     this.description = description;
+    this.imageUrl = imageUrl;
     this.price = price;
-    this.image = image;
     this.company = company;
     if (company) this.company = company;
   }
@@ -48,20 +43,27 @@ export class Sauce extends StoreModel implements ResourceBase {
     const request = {
       title: this.title,
       description: this.description,
+      imageUrl: this.imageUrl,
       price: this.price,
-      image: this.image,
       companyId: 1,
     };
-
     return request;
+
+    // const request = new FormData();
+    // request.append('title', this.title);
+    // request.append('description', this.description);
+    // request.append('file', this.imageUrl);
+    // request.append('price', this.price)
+
+    // return request;
   }
 
   buildEditRequest() {
     const request = {
       title: this.title,
       description: this.description,
+      imageUrl: this.imageUrl,
       price: this.price,
-      image: this.image,
       companyId: 1,
     };
 
@@ -71,12 +73,19 @@ export class Sauce extends StoreModel implements ResourceBase {
     };
   }
 
-  buildget() {
+  buildGet() {
     const detail = {
       title: this.title,
       description: this.description,
+      imageUrl: this.imageUrl
+        ? [
+            {
+              id: 1,
+              url: this.imageUrl,
+            },
+          ]
+        : [],
       price: this.price,
-      image: this.image,
     };
 
     return detail;
@@ -84,10 +93,11 @@ export class Sauce extends StoreModel implements ResourceBase {
 
   buildTableCols() {
     return {
+      number: this.id,
       title: this.title,
       description: this.description,
+      imageUrl: this.imageUrl,
       price: this.price,
-      image: this.image,
       actions: this.id,
     };
   }

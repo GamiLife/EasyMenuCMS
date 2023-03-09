@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import { Button, Container, Icon } from '@gamiui/standard';
+import { Button, Container, Icon, Image } from '@gamiui/standard';
 
+import { useGetSaucesByCompanyIdQuery } from '../../api';
 import { ListBase, ListToolbar } from '../../common/resources';
 import { LayoutWrapper } from '../../common/layouts';
 import { categorySlice } from '../../store';
@@ -15,14 +16,26 @@ export const Actions = styled(Container)`
 
 export default function Sauces() {
   const columns = [
-    { title: 'ID', dataIndex: 'id' },
+    { title: 'NUMERO', dataIndex: 'number' },
     { title: 'TITULO', dataIndex: 'title' },
     { title: 'DESCRIPCION', dataIndex: 'description' },
+    {
+      title: 'IMAGEN',
+      dataIndex: 'imageUrl',
+      render: (imageUrl: string) => (
+        <Image
+          src={imageUrl}
+          alt=""
+          maxWidth="200px"
+          minHeight="20px"
+          width="100%"
+        />
+      ),
+    },
     { title: 'PRECIO', dataIndex: 'price' },
-    { title: 'IMAGEN', dataIndex: 'image' },
     {
       title: 'ACCIONES',
-      dataindex: 'actions',
+      dataIndex: 'actions',
       render: (id: string) => (
         <Actions className="flex">
           <Link href={`/sauces/${id}`}>
@@ -42,7 +55,7 @@ export default function Sauces() {
       Resource={Sauce}
       columns={columns}
       slice={categorySlice}
-      // rtkHook={}
+      rtkHook={useGetSaucesByCompanyIdQuery}
       listToolbar={
         <ListToolbar
           renderActions={() => (
