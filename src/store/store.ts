@@ -1,10 +1,11 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import { easyMenuApi } from '../api';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { companyPersistReducer } from './persistor';
+
 import { categoryReducers, siteEditorReducers } from './slice';
+import { companyPersistReducer } from './persistor';
+import { easyMenuApi } from '../api';
 
 const rootReducer = combineReducers({
   categories: categoryReducers,

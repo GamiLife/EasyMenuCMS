@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Container, Title } from '@gamiui/standard';
+
 import { lightTheme } from '../../../styles/design-system/theme';
 
 export const SiteEditor = styled(Container)`
@@ -7,28 +8,28 @@ export const SiteEditor = styled(Container)`
 `;
 
 export const SiteEditorFrame = styled.iframe`
-  width: 100%;
   border: none;
   min-height: 100vh;
+  width: 100%;
 `;
 
 export const SiteEditorMenu = styled(Container)`
   background-color: white;
-  padding: 1rem 0;
   min-width: 250px;
+  padding: 1rem 0;
 `;
 
 export const SiteEditorTitle = styled(Title)`
   border-bottom: 1px solid #e9e6e6;
-  padding-bottom: 1rem;
   margin-bottom: 1rem;
+  padding-bottom: 1rem;
   padding-left: 5px;
   padding-right: 5px;
 `;
 
 export const SiteTitle = styled(Title)`
-  margin-top: 2rem;
   margin-bottom: 2rem;
+  margin-top: 2rem;
 `;
 
 export const SiteContent = styled(Container)`
@@ -49,21 +50,24 @@ export const SiteEditorFooter = styled(Container)`
   gap: 1rem;
 `;
 
-export const SiteEditorToolbar = styled(Container)``;
+export const SiteEditorToolbar = styled(Container)`
+  background-color: ${lightTheme.primary.first};
+`;
 
 export const Toolbar = styled.ul`
-  background-color: white;
-  border-radius: 0.4em;
+  column-gap: 10px;
+  display: flex;
+  margin-right: 10px;
 `;
 
 export const ToolbarItem = styled.li`
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  background-color: ${lightTheme.primary.white};
   border-radius: 0.4em;
-
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
   &:hover {
     cursor: pointer;
   }

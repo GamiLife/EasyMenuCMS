@@ -1,11 +1,6 @@
+import { IStoreModel, StoreModel } from './store.model';
 import { ResourceBase } from './base.interface';
 import { ICompany } from './company.model';
-import { IStoreModel, StoreModel } from './store.model';
-
-interface IIconOption {
-  value: string;
-  label: string;
-}
 
 interface ILocation extends IStoreModel {
   id?: number;

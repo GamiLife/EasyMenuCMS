@@ -6,8 +6,9 @@ import {
   ColorPicker,
   File,
 } from '@gamiui/standard';
-import * as S from '../../../../styles/common/resource-form';
+
 import { ICreateRenderForm } from '../../../common/resources';
+import * as S from '../../../../styles/common/resource-form';
 
 export type INewForm = {} & Omit<ICreateRenderForm, 'handleValidate'>;
 
@@ -16,7 +17,7 @@ export const NewForm = ({ form, handleSubmit }: INewForm) => {
     <S.FormContainer form={form} onSubmitForm={handleSubmit}>
       <Form.Item
         rules={[{ type: 'required', message: 'Campo requerido' }]}
-        label="Titutlo"
+        label="Título"
         name="title"
       >
         <Input placeholder="Titulo" width="full" />
@@ -65,7 +66,7 @@ export const NewForm = ({ form, handleSubmit }: INewForm) => {
           { type: 'required', message: 'Campo requerido' },
           {
             type: 'minLength',
-            message: 'Debes cargar minimo 1 imagen',
+            message: 'Debes cargar mínimo 1 imagen',
             value: 1,
           },
           {

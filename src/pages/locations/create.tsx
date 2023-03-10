@@ -1,9 +1,10 @@
 import * as React from 'react';
+
 import { useAddLocationMutation } from '../../api';
+import { LocationCreateForm } from '../../modules/locations';
 import { LayoutWrapper } from '../../common/layouts';
 import { CreateBase } from '../../common/resources';
 import { Location } from '../../common/types/location.model';
-import { LocationCreateForm } from '../../modules/locations';
 
 export default function AddLocation() {
   const transform = (values: any) => {

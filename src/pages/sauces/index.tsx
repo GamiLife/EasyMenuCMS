@@ -1,35 +1,44 @@
-import * as React from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 import { Button, Container, Icon, Image } from '@gamiui/standard';
 
-import {
-  useGetLocationsByCompanyIdQuery,
-  useGetNewsByCompanyIdQuery,
-} from '../../api';
+import { useGetSaucesByCompanyIdQuery } from '../../api';
 import { ListBase, ListToolbar } from '../../common/resources';
-import { categorySlice } from '../../store';
 import { LayoutWrapper } from '../../common/layouts';
+import { categorySlice } from '../../store';
 import { lightTheme } from '../../../styles/design-system/theme';
-import { Location } from '../../common/types';
-import { New } from '../../common/types';
+import { Sauce } from '../../common/types';
 
 export const Actions = styled(Container)`
   display: flex;
   gap: 1rem;
 `;
 
-export default function Locations() {
+export default function Sauces() {
   const columns = [
-    { title: 'NOMBRE', dataIndex: 'name' },
-    { title: 'DIRECCION', dataIndex: 'address' },
-    { title: 'TELEFONO', dataIndex: 'phone' },
+    { title: 'NUMERO', dataIndex: 'number' },
+    { title: 'TITULO', dataIndex: 'title' },
+    { title: 'DESCRIPCION', dataIndex: 'description' },
+    {
+      title: 'IMAGEN',
+      dataIndex: 'imageUrl',
+      render: (imageUrl: string) => (
+        <Image
+          src={imageUrl}
+          alt=""
+          maxWidth="200px"
+          minHeight="20px"
+          width="100%"
+        />
+      ),
+    },
+    { title: 'PRECIO', dataIndex: 'price' },
     {
       title: 'ACCIONES',
       dataIndex: 'actions',
       render: (id: string) => (
         <Actions className="flex">
-          <Link href={`/locations/${id}`}>
+          <Link href={`/sauces/${id}`}>
             <Button variant="secondary" bordered shadow="none">
               <Icon name="preview" color={lightTheme.primary.mediumPurple} />
             </Button>
@@ -43,14 +52,14 @@ export default function Locations() {
   ];
   return (
     <ListBase
-      Resource={Location}
+      Resource={Sauce}
       columns={columns}
       slice={categorySlice}
-      rtkHook={useGetLocationsByCompanyIdQuery}
+      rtkHook={useGetSaucesByCompanyIdQuery}
       listToolbar={
         <ListToolbar
           renderActions={() => (
-            <Link href="/locations/create">
+            <Link href="/sauces/create">
               <Button>Crear</Button>
             </Link>
           )}
@@ -60,6 +69,6 @@ export default function Locations() {
   );
 }
 
-Locations.getLayout = (children: React.ReactNode) => (
+Sauces.getLayout = (children: React.ReactNode) => (
   <LayoutWrapper>{children}</LayoutWrapper>
 );
