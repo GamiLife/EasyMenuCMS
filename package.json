@@ -12,7 +12,7 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@gamilife/node-components.core.core": "npm:@my-scope/core.core@^1.0.0",
-    "@gamiui/standard": "^0.1.0-alpha.100",
+    "@gamiui/standard": "^0.1.0-alpha.102",
     "@nextui-org/react": "^1.0.0-beta.10",
     "@reduxjs/toolkit": "^1.9.0",
     "babel-plugin-emotion": "^11.0.0",
