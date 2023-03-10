@@ -2,9 +2,11 @@ import {
   EThemeModeType,
   EThemeProviderType,
 } from '@gamilife/node-components.core.core';
+import { options } from '../../modules/company/CompanyForm';
 import { ResourceBase } from './base.interface';
 
 export type TDetails = {
+  id: number;
   user: string;
   phone: string;
   countryCode: string;
@@ -23,20 +25,12 @@ export interface IBrand {
   metaDescription: string;
 }
 
-export interface ITheme {
-  id: number;
-  themeMode: EThemeModeType;
-  type: EThemeProviderType;
-  value: string;
-}
-
 export interface ICompany {
   id: number;
   name: string;
   description: string;
   slugUrl: string;
   brand: IBrand;
-  theme: ITheme[];
   socialNetworks: ISocialNetwork[];
 }
 
@@ -46,7 +40,6 @@ export class Company implements ResourceBase {
   description: ICompany['description'];
   slugUrl: ICompany['slugUrl'];
   brand: ICompany['brand'];
-  theme: ICompany['theme'];
   socialNetworks: ICompany['socialNetworks'];
 
   constructor({
@@ -55,7 +48,6 @@ export class Company implements ResourceBase {
     description,
     slugUrl,
     brand,
-    theme,
     socialNetworks,
   }: ICompany) {
     this.id = id;
@@ -63,7 +55,6 @@ export class Company implements ResourceBase {
     this.description = description;
     this.slugUrl = slugUrl;
     this.brand = brand;
-    this.theme = theme;
     this.socialNetworks = socialNetworks;
   }
 
@@ -78,11 +69,16 @@ export class Company implements ResourceBase {
         slugUrl: this.slugUrl,
       },
       brand: this.brand,
-      theme: this.theme,
-      socialNetworks: this.socialNetworks,
+      brandSocialNetworks: this.socialNetworks.map((social) => ({
+        socialNetworkId: +social.id,
+        countryCode: social.details.countryCode,
+        phone: social.details.phone,
+        user: social.details.user,
+        id: +social.details.id,
+      })),
     };
 
-    return detail;
+    return { body: detail, id: detail.company.id };
   }
 
   buildGet() {
@@ -91,10 +87,18 @@ export class Company implements ResourceBase {
       name: this.name,
       description: this.description,
       slugUrl: this.slugUrl,
+      brandId: this.brand.id,
       metaTitle: this.brand.metaTitle,
       metaDescription: this.brand.metaDescription,
-      theme: this.theme,
-      socialNetworks: this.socialNetworks,
+      socialNetworks: this.socialNetworks.map((social) => ({
+        socialNetworkId: options.find(
+          (option) => `${social.id}` == option.value
+        ),
+        id: social.details.id,
+        user: social.details.user,
+        phone: social.details.phone,
+        countryCode: social.details.countryCode,
+      })),
     };
 
     return detail;

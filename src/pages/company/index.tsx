@@ -16,10 +16,26 @@ export default function Companies() {
     id: `${id}`,
   });
 
-  const transform = (values: any) => {
+  const transformOnEdit = (values: any) => {
     const request = {
-      ...values,
-      companyId: '1',
+      id: values.id,
+      name: values.name,
+      description: values.description,
+      slugUrl: values.slugUrl,
+      brand: {
+        id: values.brandId,
+        metaTitle: values.metaTitle,
+        metaDescription: values.metaDescription,
+      },
+      socialNetworks: values.socialNetworks.map((social: any) => ({
+        id: +social.socialNetworkId.value,
+        details: {
+          countryCode: social.countryCode,
+          phone: social.phone,
+          user: social.user,
+          id: +social.id,
+        },
+      })),
     };
 
     return request;
@@ -40,7 +56,7 @@ export default function Companies() {
           })}
           resourceType="Company"
           rtkHook={useUpdateCompanyMutation}
-          transform={transform}
+          transform={transformOnEdit}
           renderForm={(props) => <CompanyEditForm {...props} />}
           Resource={Company}
           fixedCacheKey="shared-edit-company"
