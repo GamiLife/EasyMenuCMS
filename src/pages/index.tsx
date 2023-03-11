@@ -1,12 +1,12 @@
-import { Container } from '@gamiui/standard';
-import classNames from 'classnames';
 import * as React from 'react';
 import { LayoutWrapper } from '../common/layouts';
+import { LastActivity, ReportResources } from '../modules/home';
 
 export default function Home() {
   return (
     <React.Fragment>
-      <Container padding="1rem" className={classNames('home')} />
+      <ReportResources />
+      <LastActivity />
     </React.Fragment>
   );
 }
