@@ -8,6 +8,9 @@ export interface IBlockEditor {
   blockId: string;
   background?: string;
   color?: string;
+  id: number;
+  themeMode: string;
+  brandId: number;
 }
 
 export type TToolbarAction = '' | 'cursor-selected';
@@ -22,55 +25,127 @@ export interface ISiteEditorState {
 export const siteEditorInitialState: ISiteEditorState = {
   blocks: [
     {
+      id: 2,
+      themeMode: 'light',
+      background: 'red',
+      color: 'red',
+      brandId: 1,
       blockId: 'header-container',
-      background: `${lightTheme.primary.white}`,
-      color: `${lightTheme.primary.black}`,
     },
     {
-      blockId: 'categories-container',
-      background: `${lightTheme.primary.white}`,
-      color: `${lightTheme.primary.black}`,
+      id: 3,
+      themeMode: 'light',
+      background: 'red',
+      color: 'red',
+      brandId: 1,
+      blockId: 'category-item',
     },
     {
+      id: 4,
+      themeMode: 'light',
+      background: 'red',
+      color: 'red',
+      brandId: 1,
       blockId: 'wrapper-page',
-      background: `${lightTheme.primary.second}`,
-      color: `${lightTheme.primary.black}`,
     },
     {
+      id: 5,
+      themeMode: 'light',
+      background: 'red',
+      color: 'red',
+      brandId: 1,
       blockId: 'product-card',
-      background: `${lightTheme.primary.white}`,
-      color: `${lightTheme.primary.black}`,
     },
     {
+      id: 6,
+      themeMode: 'light',
+      background: 'red',
+      color: 'red',
+      brandId: 1,
       blockId: 'wish-list-icon',
-      background: `${lightTheme.primary.white}`,
-      color: `${lightTheme.primary.first}`,
     },
     {
+      id: 7,
+      themeMode: 'light',
+      background: 'red',
+      color: 'red',
+      brandId: 1,
       blockId: 'shipping-button',
-      background: `${lightTheme.primary.first}`,
-      color: `${lightTheme.primary.white}`,
     },
     {
+      id: 8,
+      themeMode: 'light',
+      background: 'red',
+      color: 'red',
+      brandId: 1,
       blockId: 'footer-container',
-      background: `${lightTheme.primary.first}`,
-      color: `${lightTheme.primary.white}`,
     },
     {
+      id: 9,
+      themeMode: 'light',
+      background: 'red',
+      color: 'red',
+      brandId: 1,
       blockId: 'scroll-button',
-      background: `${lightTheme.primary.mediumPurple}`,
-      color: `${lightTheme.primary.white}`,
     },
     {
-      blockId: 'container-selection-area',
-      background: `${lightTheme.primary.white}`,
-      color: `${lightTheme.primary.black}`,
+      id: 1,
+      themeMode: 'light',
+      background: 'white',
+      color: 'black',
+      brandId: 1,
+      blockId: 'categories-container',
     },
-    {
-      blockId: 'location-card',
-      background: `${lightTheme.primary.white}`,
-      color: `${lightTheme.primary.black}`,
-    },
+    // {
+    //   blockId: 'header-container',
+    //   background: `${lightTheme.primary.white}`,
+    //   color: `${lightTheme.primary.black}`,
+    // },
+    // {
+    //   blockId: 'categories-container',
+    //   background: `${lightTheme.primary.white}`,
+    //   color: `${lightTheme.primary.black}`,
+    // },
+    // {
+    //   blockId: 'wrapper-page',
+    //   background: `${lightTheme.primary.second}`,
+    //   color: `${lightTheme.primary.black}`,
+    // },
+    // {
+    //   blockId: 'product-card',
+    //   background: `${lightTheme.primary.white}`,
+    //   color: `${lightTheme.primary.black}`,
+    // },
+    // {
+    //   blockId: 'wish-list-icon',
+    //   background: `${lightTheme.primary.white}`,
+    //   color: `${lightTheme.primary.first}`,
+    // },
+    // {
+    //   blockId: 'shipping-button',
+    //   background: `${lightTheme.primary.first}`,
+    //   color: `${lightTheme.primary.white}`,
+    // },
+    // {
+    //   blockId: 'footer-container',
+    //   background: `${lightTheme.primary.first}`,
+    //   color: `${lightTheme.primary.white}`,
+    // },
+    // {
+    //   blockId: 'scroll-button',
+    //   background: `${lightTheme.primary.mediumPurple}`,
+    //   color: `${lightTheme.primary.white}`,
+    // },
+    // {
+    //   blockId: 'container-selection-area',
+    //   background: `${lightTheme.primary.white}`,
+    //   color: `${lightTheme.primary.black}`,
+    // },
+    // {
+    //   blockId: 'location-card',
+    //   background: `${lightTheme.primary.white}`,
+    //   color: `${lightTheme.primary.black}`,
+    // },
   ],
   siteEditorState: 'blocks',
   toolbarAction: '',
