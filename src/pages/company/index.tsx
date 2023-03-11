@@ -16,7 +16,50 @@ export default function Companies() {
     id: `${id}`,
   });
 
+  const getOperations = (socialNetworks: any) => {
+    const formsocialNetworkIds = socialNetworks.map(
+      (social: any) => +social.socialNetworkId.value
+    );
+    const currentValueNetworkIds = data.socialNetworks.map(
+      (social: any) => +social.id
+    );
+
+    const updatedSocialNetworks = socialNetworks.map((socialNetwork: any) => ({
+      ...socialNetwork,
+      id: +socialNetwork.id,
+      socialNetworkId: +socialNetwork.socialNetworkId.value,
+      operation: !currentValueNetworkIds.includes(
+        +socialNetwork.socialNetworkId.value
+      )
+        ? 'insert'
+        : 'update',
+    }));
+
+    const deletedSocialNetworks = data.socialNetworks
+      .filter(
+        (socialNetwork: any) =>
+          !formsocialNetworkIds.includes(+socialNetwork.id)
+      )
+      .map((socialNetwork: any) => ({
+        id: +socialNetwork?.details?.id,
+        user: '',
+        phone: '',
+        countryCode: '',
+        socialNetworkId: +socialNetwork.id,
+        operation: 'delete',
+      }));
+
+    const brandSocialNetworks = [
+      ...updatedSocialNetworks,
+      ...deletedSocialNetworks,
+    ];
+
+    return brandSocialNetworks;
+  };
+
   const transformOnEdit = (values: any) => {
+    const brandSocialNetworks = getOperations(values.socialNetworks);
+
     const request = {
       id: values.id,
       name: values.name,
@@ -27,13 +70,14 @@ export default function Companies() {
         metaTitle: values.metaTitle,
         metaDescription: values.metaDescription,
       },
-      socialNetworks: values.socialNetworks.map((social: any) => ({
-        id: +social.socialNetworkId.value,
+      socialNetworks: brandSocialNetworks.map((social: any) => ({
+        id: +social?.socialNetworkId,
         details: {
-          countryCode: social.countryCode,
-          phone: social.phone,
-          user: social.user,
-          id: +social.id,
+          countryCode: social?.countryCode,
+          phone: social?.phone,
+          user: social?.user,
+          id: +social?.id,
+          operation: social.operation,
         },
       })),
     };

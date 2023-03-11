@@ -5,11 +5,14 @@ import {
 import { options } from '../../modules/company/CompanyForm';
 import { ResourceBase } from './base.interface';
 
+export type TOperations = 'insert' | 'update' | 'delete';
+
 export type TDetails = {
   id: number;
   user: string;
   phone: string;
   countryCode: string;
+  operation?: TOperations;
 };
 
 export interface ISocialNetwork {
@@ -75,6 +78,7 @@ export class Company implements ResourceBase {
         phone: social.details.phone,
         user: social.details.user,
         id: +social.details.id,
+        operation: social.details.operation,
       })),
     };
 
