@@ -110,7 +110,7 @@ export const SiteEditor = () => {
 
   return (
     <FullScreen handle={handle}>
-      <Container width="full" padding="1rem">
+      <OwnS.SiteEditorScreen width="full" padding="1rem">
         <OwnS.SiteEditorToolbar
           className={classNames('flex', 'justify-between', 'items-center')}
         >
@@ -163,7 +163,7 @@ export const SiteEditor = () => {
             )}
           </OwnS.SiteEditorMenu>
         </OwnS.SiteEditor>
-      </Container>
+      </OwnS.SiteEditorScreen>
     </FullScreen>
   );
 };

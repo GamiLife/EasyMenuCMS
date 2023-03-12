@@ -50,9 +50,7 @@ export const SiteEditorFooter = styled(Container)`
   gap: 1rem;
 `;
 
-export const SiteEditorToolbar = styled(Container)`
-  background-color: ${lightTheme.primary.first};
-`;
+export const SiteEditorToolbar = styled(Container)``;
 
 export const Toolbar = styled.ul`
   column-gap: 10px;
@@ -75,4 +73,8 @@ export const ToolbarItem = styled.li`
   &.selected {
     border: 2px solid ${lightTheme.primary.mediumPurple};
   }
+`;
+
+export const SiteEditorScreen = styled(Container)`
+  background-color: ${lightTheme.primary.second};
 `;
