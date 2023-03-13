@@ -1,6 +1,7 @@
 import { WritableDraft } from 'immer/dist/internal';
-import { IAction } from '../slice';
+
 import { IBlockEditor, ISiteEditorState } from '../slice/siteEditorSlice';
+import { IAction } from '../slice';
 
 export type IAddBlockAction = {
   block: IBlockEditor;
@@ -49,5 +50,12 @@ export const siteEditorReducer = {
   ) {
     const { payload } = action;
     state.siteEditorState = payload;
+  },
+  setBlocks(
+    state: WritableDraft<ISiteEditorState>,
+    action: IAction<ISiteEditorState['blocks']>
+  ) {
+    const { payload } = action;
+    state.blocks = payload;
   },
 };

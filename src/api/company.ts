@@ -30,3 +30,25 @@ export const companyApi = (
     }),
   }),
 });
+
+export const siteEditorApi = (
+  builder: EndpointBuilder<
+    BaseQueryFn<
+      string | FetchArgs,
+      unknown,
+      FetchBaseQueryError,
+      {},
+      FetchBaseQueryMeta
+    >,
+    never,
+    'easyMenuApi'
+  >
+) => ({
+  updateBlockCompany: builder.mutation({
+    query: ({ body, id }) => ({
+      url: `companies/1/blocks/${id}`,
+      method: 'PUT',
+      body,
+    }),
+  }),
+});

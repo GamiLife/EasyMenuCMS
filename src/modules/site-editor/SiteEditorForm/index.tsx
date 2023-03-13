@@ -1,6 +1,7 @@
 import { Button, ColorPicker, Form, Title } from '@gamiui/standard';
 import { useDispatch, useSelector } from 'react-redux';
 import * as S from '../../../../styles/common/resource-form';
+import { useUpdateBlockCompanyMutation } from '../../../api';
 import { siteEditorSlice } from '../../../store';
 import { RootState } from '../../../store/store';
 import * as OwnS from '../styles';
@@ -10,6 +11,8 @@ export interface ISiteEditForm {
 }
 
 export const SiteEditorForm = ({ frameRef }: ISiteEditForm) => {
+  const [execute, { data, isSuccess, isLoading }] =
+    useUpdateBlockCompanyMutation();
   const { blocks, blockIdSelected } = useSelector(
     (state: RootState) => state.siteEditor
   );
@@ -27,18 +30,22 @@ export const SiteEditorForm = ({ frameRef }: ISiteEditForm) => {
   });
 
   const handleSubmit = (colorPicked: string, backgroundPicked: string) => {
+    const request = {
+      id: blockSelected?.id,
+      themeMode: blockSelected?.themeMode,
+      blockId: blockSelected?.blockId,
+      brandId: blockSelected?.brandId,
+      background: backgroundPicked,
+      color: colorPicked,
+    };
     frameRef.current.contentWindow.postMessage(
       {
         type: 'block-edit-submit',
-        message: {
-          blockId: blockSelected?.blockId,
-          brandId: blockSelected?.blockId,
-          background: backgroundPicked,
-          color: colorPicked,
-        },
+        message: request,
       },
       base
     );
+    execute({ body: request, id: request.id });
   };
 
   const handleBackEditor = () => {

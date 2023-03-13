@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { staticPagesApi } from './staticPages';
 import { categoryApi } from './category';
 import { locationApi } from './locations';
-import { companyApi } from './company';
+import { companyApi, siteEditorApi } from './company';
 import { sauceApi } from './sauces';
 import { newApi } from './new';
 
@@ -19,6 +19,7 @@ export const easyMenuApi = createApi({
     ...staticPagesApi(builder),
     ...sauceApi(builder),
     ...companyApi(builder),
+    ...siteEditorApi(builder),
   }),
 });
 
@@ -49,6 +50,7 @@ export const {
   useAddSauceMutation,
   useUpdateSauceMutation,
 
+  useUpdateBlockCompanyMutation,
   useGetCompanyByIdQuery,
   useUpdateCompanyMutation,
 } = easyMenuApi;

@@ -63,6 +63,19 @@ export const SiteEditor = () => {
     );
   }, [toolbarAction]);
 
+  useEffect(() => {
+    async function companyFetch() {
+      const response = await fetch(
+        'http://127.0.0.1:4200/easymenu/api/v1/companies/1'
+      );
+      const {
+        data: { theme },
+      } = await response.json();
+      dispatch(siteEditorSlice.actions.setBlocks(theme));
+    }
+    companyFetch();
+  }, []);
+
   const pickToolbacAction = (
     toolbarActionProp: ISiteEditorState['toolbarAction']
   ) => {
