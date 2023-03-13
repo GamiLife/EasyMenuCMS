@@ -21,16 +21,16 @@ export const LayoutWrapper = ({ children }: ILayoutWrapper) => {
         <S.Content>
           <S.BreadCrumb>
             <S.BreadCrumbItem>
-              <Title level='h3' fontWeight='light'>
+              <Title level="h3" fontWeight="light">
                 Marca
               </Title>
             </S.BreadCrumbItem>
             <S.BreadCrumArrow>
-              <Icon name='arrow__right' color='black' />
+              <Icon name="arrow__right" color="black" />
             </S.BreadCrumArrow>
             <S.BreadCrumbItem>
-              <Icon name='notes' color='black' />
-              <Title level='h3' fontWeight='medium'>
+              <Icon name="notes" color="black" />
+              <Title level="h3" fontWeight="medium">
                 Categoria
               </Title>
             </S.BreadCrumbItem>

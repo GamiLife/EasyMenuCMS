@@ -23,8 +23,7 @@ export const sauceApi = (
 ) => ({
   getSaucesByCompanyId: builder.query<Response<Category[]>, unknown>({
     query: ({ params, id }) => ({
-      url: `sauces`,
-      //   url: `sauces/companies/${id}`,
+      url: `sauces/companies/${id}`,
       method: 'GET',
       params,
     }),

@@ -32,6 +32,7 @@ export const SiteEditorForm = ({ frameRef }: ISiteEditForm) => {
         type: 'block-edit-submit',
         message: {
           blockId: blockSelected?.blockId,
+          brandId: blockSelected?.blockId,
           background: backgroundPicked,
           color: colorPicked,
         },
