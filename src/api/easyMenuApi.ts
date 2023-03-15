@@ -10,7 +10,7 @@ import { newApi } from './new';
 export const easyMenuApi = createApi({
   reducerPath: 'easyMenuApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://127.0.0.1:4200/easymenu/api/v1',
+    baseUrl: `${process.env.MY_MICROSERVICE_URL}/easymenu/api/v1`,
   }),
   endpoints: (builder) => ({
     ...categoryApi(builder),

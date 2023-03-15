@@ -20,8 +20,9 @@ export const SiteEditor = () => {
   const dispatch = useDispatch();
 
   const frameRef = useRef<any>();
-  const base = 'http://localhost:3002';
-  const origin = 'http://localhost:3002/sea-fast-food';
+  const base = process.env.WEB_URL;
+
+  const origin = `${process.env.WEB_URL}/sea-fast-food`;
 
   const handleBlockIdSelected = (blockIdSelected: string) => {
     dispatch(
@@ -66,7 +67,7 @@ export const SiteEditor = () => {
   useEffect(() => {
     async function companyFetch() {
       const response = await fetch(
-        'http://127.0.0.1:4200/easymenu/api/v1/companies/1'
+        `${process.env.MY_MICROSERVICE_URL}/easymenu/api/v1/companies/1`
       );
       const {
         data: { theme },

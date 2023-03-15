@@ -20,7 +20,7 @@ export const SiteEditorForm = ({ frameRef }: ISiteEditForm) => {
   const blockSelected = blocks.find(
     ({ blockId }) => blockIdSelected === blockId
   );
-  const base = 'http://localhost:3002';
+  const base = process.env.WEB_URL;
 
   const { form } = Form.useForm({
     defaultValue: {
