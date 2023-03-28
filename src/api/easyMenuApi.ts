@@ -6,6 +6,7 @@ import { locationApi } from './locations';
 import { companyApi, siteEditorApi } from './company';
 import { sauceApi } from './sauces';
 import { newApi } from './new';
+import { dishesApi } from './dishes';
 
 export const easyMenuApi = createApi({
   reducerPath: 'easyMenuApi',
@@ -20,6 +21,7 @@ export const easyMenuApi = createApi({
     ...sauceApi(builder),
     ...companyApi(builder),
     ...siteEditorApi(builder),
+    ...dishesApi(builder),
   }),
 });
 
@@ -53,6 +55,11 @@ export const {
   useUpdateBlockCompanyMutation,
   useGetCompanyByIdQuery,
   useUpdateCompanyMutation,
+
+  useGetDishesQuery,
+  useGetDishQuery,
+  useAddDishMutation,
+  useUpdateDishMutation,
 } = easyMenuApi;
 
 export const endpoints = {
