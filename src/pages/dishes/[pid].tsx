@@ -1,16 +1,13 @@
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import {
-  useGetDishQuery,
-  useGetNewByIdQuery,
-  useUpdateNewMutation,
-} from '../../api';
+import { useGetDishQuery, useUpdateDishMutation } from '../../api';
 import { EasyLoader } from '../../common/components/EasyLoader';
 import { useEditController } from '../../common/hooks';
 import { LayoutWrapper } from '../../common/layouts';
 import { EditBase } from '../../common/resources';
 import { New } from '../../common/types';
-import { NewEditForm } from '../../modules/news';
+import { DishEditForm } from '../../modules/dishes';
+import { Dish } from '../../common/types/dish.model';
 
 export default function EditNew() {
   const router = useRouter();
@@ -27,8 +24,6 @@ export default function EditNew() {
 
     const request = {
       ...values,
-      startDate: new Date(startDate).toISOString(),
-      endDate: new Date(endDate).toISOString(),
       companyId: '1',
       imageUrl: imageUrl[0]?.file,
     };
@@ -47,10 +42,10 @@ export default function EditNew() {
             ...data,
           })}
           resourceType="Dish"
-          rtkHook={useUpdateNewMutation}
+          rtkHook={useUpdateDishMutation}
           transform={transform}
-          renderForm={(props) => <NewEditForm {...props} />}
-          Resource={New}
+          renderForm={(props) => <DishEditForm {...props} />}
+          Resource={Dish}
           fixedCacheKey="shared-edit-dish"
           baseUrl="/dishes"
         ></EditBase>

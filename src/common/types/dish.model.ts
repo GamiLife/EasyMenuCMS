@@ -54,6 +54,9 @@ export class Dish extends StoreModel implements ResourceBase {
     return {
       title: this.title,
       description: this.description,
+      slug: this.slug,
+      priceByUnit: this.priceByUnit,
+      maxItems: this.maxItems,
       imageUrl: this.imageUrl
         ? [
             {
@@ -62,8 +65,6 @@ export class Dish extends StoreModel implements ResourceBase {
             },
           ]
         : [],
-      priceByUnit: this.priceByUnit,
-      maxItems: this.maxItems,
     };
   }
 
