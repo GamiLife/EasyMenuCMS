@@ -24,7 +24,7 @@ export const DishCreateForm = ({
 
       <S.FormFooter>
         <S.FooterItemContainer>
-          <Link href="/news">
+          <Link href="/dishes">
             <Button
               width="full"
               variant="primary"

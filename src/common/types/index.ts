@@ -9,3 +9,4 @@ export * from './response.model';
 export * from './sauce.model';
 export * from './static-pages.model';
 export * from './store.model';
+export * from './combo.model';

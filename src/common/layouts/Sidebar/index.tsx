@@ -86,6 +86,15 @@ export const Sidebar = ({}: ISidebar) => {
           Salsas
         </S.Item>
       </Link>
+      <Link href="/combos">
+        <S.Item
+          className={classNames({
+            active: basePath === 'combos',
+          })}
+        >
+          Combos
+        </S.Item>
+      </Link>
       <Link href="/dishes">
         <S.Item
           className={classNames({

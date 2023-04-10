@@ -31,7 +31,7 @@ export default function EditNew() {
     return request;
   };
 
-  const transformOnGet = (values: any) => new New(values).buildGet();
+  const transformOnGet = (values: any) => new Dish(values).buildGet();
 
   return (
     <EasyLoader isLoading={isFetching}>

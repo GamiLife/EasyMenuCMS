@@ -7,6 +7,7 @@ import { companyApi, siteEditorApi } from './company';
 import { sauceApi } from './sauces';
 import { newApi } from './new';
 import { dishesApi } from './dishes';
+import { combosApi } from './combos';
 
 export const easyMenuApi = createApi({
   reducerPath: 'easyMenuApi',
@@ -22,6 +23,7 @@ export const easyMenuApi = createApi({
     ...companyApi(builder),
     ...siteEditorApi(builder),
     ...dishesApi(builder),
+    ...combosApi(builder),
   }),
 });
 
@@ -60,6 +62,11 @@ export const {
   useGetDishQuery,
   useAddDishMutation,
   useUpdateDishMutation,
+
+  useGetCombosQuery,
+  useGetComboQuery,
+  useAddComboMutation,
+  useUpdateComboMutation,
 } = easyMenuApi;
 
 export const endpoints = {

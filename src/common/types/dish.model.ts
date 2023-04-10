@@ -46,9 +46,34 @@ export class Dish extends StoreModel implements ResourceBase {
     if (company) this.company = company;
   }
 
-  buildCreateRequest() {}
+  buildCreateRequest() {
+    const request = new FormData();
+    request.append('title', this.title);
+    request.append('description', this.description);
+    request.append('slug', this.slug);
+    request.append('priceByUnit', `${this.priceByUnit}`);
+    request.append('maxItems', `${this.maxItems}`);
+    request.append('companyId', '1');
+    request.append('file', this.imageUrl);
 
-  buildEditRequest() {}
+    return request;
+  }
+
+  buildEditRequest() {
+    const request = new FormData();
+    request.append('title', this.title);
+    request.append('description', this.description);
+    request.append('slug', this.slug);
+    request.append('priceByUnit', `${this.priceByUnit}`);
+    request.append('maxItems', `${this.maxItems}`);
+    request.append('companyId', '1');
+    request.append('file', this.imageUrl);
+
+    return {
+      body: request,
+      id: this.id,
+    };
+  }
 
   buildGet() {
     return {
