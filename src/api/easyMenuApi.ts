@@ -62,6 +62,8 @@ export const {
   useGetDishQuery,
   useAddDishMutation,
   useUpdateDishMutation,
+  useLazyGetDishQuery,
+  useLazyGetDishesQuery,
 
   useGetCombosQuery,
   useGetComboQuery,

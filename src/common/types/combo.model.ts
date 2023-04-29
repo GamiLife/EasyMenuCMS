@@ -1,3 +1,4 @@
+import { getImage } from '../../../helpers';
 import { ResourceBase } from './base.interface';
 import { ICompany } from './company.model';
 import { IStoreModel, StoreModel } from './store.model';
@@ -7,6 +8,7 @@ interface IPrincipalDish {
   title: string;
   description: string;
   priceByUnit: number;
+  imageUrl: string;
   maxItems: string;
 }
 
@@ -15,6 +17,7 @@ interface IElement {
   title: string;
   description: string;
   priceByUnit: number;
+  imageUrl: string;
 }
 
 interface IDish {
@@ -82,11 +85,37 @@ export class Combo extends StoreModel implements ResourceBase {
   buildEditRequest() {}
 
   buildGet() {
-    return {
+    const detail = {
       title: this.title,
       description: this.description,
       maxItems: this.maxItems,
+
+      dishTitle: this.principalDish.title,
+      dishDescription: this.principalDish.description,
+      dishPriceByUnit: this.principalDish.priceByUnit,
+      dishImageUrl: getImage(this.principalDish.imageUrl),
+      dishMaxItems: this.principalDish.maxItems,
+
+      dishesDetail: this.dishes.map((dish) => ({
+        id: dish.id,
+        maxItemsByRow: dish.maxItemsByRow,
+        priceByUnit: dish.priceByUnit,
+        dishId: dish.dish.id,
+        dishName: dish.dish.title,
+        dishImage: getImage(dish.dish.imageUrl),
+      })),
+
+      saucesDetail: this.sauces.map((sauce) => ({
+        id: sauce.id,
+        maxItemsByRow: sauce.maxItemsByRow,
+        priceByUnit: sauce.priceByUnit,
+        sauceId: sauce.sauce.id,
+        sauceName: sauce.sauce.title,
+        sauceImage: getImage(sauce.sauce.imageUrl),
+      })),
     };
+
+    return detail;
   }
 
   buildTableCols() {
